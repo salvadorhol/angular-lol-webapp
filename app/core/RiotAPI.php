@@ -10,7 +10,9 @@ class RiotAPI {
 	}
 
 	//your api calls and stufff
-	
+	public function testAjax(){
+		return "It WORKED";
+	}
 
 
 }

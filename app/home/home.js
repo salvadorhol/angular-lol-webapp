@@ -9,7 +9,7 @@ angular.module('myApp.home', ['ngRoute'])
   });
 }])
 
-.controller('HomeCtrl', ['$scope', '$interval', function($scope, $interval) {
+.controller('HomeCtrl', ['$scope', '$interval', '$http', function($scope, $interval, $http) {
 	$interval(function(){
 		$scope.currentTime = new Date();
 	}, 1000);
@@ -26,7 +26,13 @@ angular.module('myApp.home', ['ngRoute'])
 		key = key.keyCode || key.which;
 
 		if(key === 13){
-			console.log("DO AJAX");
+			var data = {region: "NA", name: "Sal"};
+
+			$http.post('/engine.php?method=route', {class: "RiotAPI", function: "", data: data})
+				.then(function(response){
+					console.log("HomeCtrl.searchSummoner: response - ");
+					console.log(response);
+				})
 		}
 	} 
 }]);
