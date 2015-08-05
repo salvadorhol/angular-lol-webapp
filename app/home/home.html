@@ -1,25 +1,25 @@
 
 <div class="container">
 	<div class="row">
-		<div class="col-lg-4">
-			<h3> {{currentTime | date : 'medium'}}</h3>
+		<div class="col-lg-4 col-lg-offset-4" style="margin-top: 30%">
+			<img src="lee-sin.png" style="height: 125px; display: block; margin-left: auto; margin-right: auto">
 		</div>
-	</div>
-
-	<div class="col-lg-4 col-lg-offset-4" style="margin-top: 30%">
-		<img src="lee-sin.png" style="height: 125px; display: block; margin-left: auto; margin-right: auto">
 	</div>
 
 	<div class="row">
-		<div class="col-sm-2">
-			<select name="region" class="form-control" ng-model="selRegion" ng-options="region.value for region in regionList"></select>
-		</div>
-		<div class="col-sm-4">
-			<input type="text" class="form-control" ng-model="summonerName" ng-keypress="searchSummoner($event)"/>
+		<div class="col-sm-4 col-sm-offset-4">
+			<div class="form-inline">
+				<div class="input-group" style="width: 100%">
+					<input type="text" class="form-control" ng-model="summonerName" ng-keypress="searchSummoner($event)"/>
+					<div class="input-group-btn">
+						<select name="region" class="form-control" ng-model="selRegion" ng-options="region.value for region in regionList"></select>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 	
-	<table>
+	<!-- <table>
 		<thead>
 			<tr>
 				<th>Name</th>
@@ -32,6 +32,6 @@
 				<td>{{summoner.wins}}</td>
 			</tr>	
 		</tbody>
-	</table>
+	</table> -->
 
 </div>
