@@ -10,11 +10,10 @@ angular.module('myApp.home', ['ngRoute'])
 }])
 
 .controller('HomeCtrl', ['$scope', '$interval', function($scope, $interval) {
-	var name = "Sal Holguin";
-	$scope.name = "Sal Holguin";
-
 	$interval(function(){
 		$scope.currentTime = new Date();
 	}, 1000);
+
+	
 
 }]);
