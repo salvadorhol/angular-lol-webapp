@@ -9,15 +9,15 @@ angular.module('myApp.home', ['ngRoute'])
   });
 }])
 
-.controller('HomeCtrl', ['$scope', '$interval', '$http', function($scope, $interval, $http) {
+.controller('HomeCtrl', ['$scope', '$interval', '$http', '$timeout', function($scope, $interval, $http, $timeout) {
 	$interval(function(){
 		$scope.currentTime = new Date();
 	}, 1000);
 
 	$scope.regionList = [
-		{name: "North America", value: "NA"},
-		{name: "Europe", value: "EU"},
-		{name: "Korea", value: "KR"}
+		{name: "North America", value: "na"},
+		{name: "Europe", value: "eu"},
+		{name: "Korea", value: "kr"}
 	];
 
 	$scope.selRegion = $scope.regionList[0];
@@ -26,13 +26,21 @@ angular.module('myApp.home', ['ngRoute'])
 		key = key.keyCode || key.which;
 
 		if(key === 13){
-			var data = {region: "NA", name: "Sal"};
+			
+			$timeout(function(){
+				var data = {region: $scope.selRegion.value.toLowerCase(), name: $scope.summonerName.toLowerCase()};
 
-			$http.post('/engine.php?method=route', {class: "RiotAPI", function: "", data: data})
-				.then(function(response){
-					console.log("HomeCtrl.searchSummoner: response - ");
-					console.log(response);
-				})
+				$http.post('/engine.php?method=route', {class: "RiotAPI", function: "getLeague", data: data})
+					.then(function(response){
+						console.log("HomeCtrl.searchSummoner: response - ");
+						console.log(response);
+						var id = [];
+						angular.forEach(Object.keys(response.data), function(smnr){
+							id.push(smnr);
+						})
+						$scope.leagueData = response.data[id[0]][0]["entries"];
+					})
+			}, 200);
 		}
 	} 
 }]);

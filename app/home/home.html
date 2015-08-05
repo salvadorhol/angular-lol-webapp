@@ -18,4 +18,20 @@
 			<input type="text" class="form-control" ng-model="summonerName" ng-keypress="searchSummoner($event)"/>
 		</div>
 	</div>
+	
+	<table>
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Wins</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="summoner in leagueData">
+				<td>{{summoner.playerOrTeamName}}</td>
+				<td>{{summoner.wins}}</td>
+			</tr>	
+		</tbody>
+	</table>
+
 </div>

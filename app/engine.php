@@ -1,5 +1,5 @@
 <?php
-
+include_once("core/APIKey.php");
 include_once("core/RiotAPI.php");
 
 class Engine {
