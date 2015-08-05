@@ -8,9 +8,14 @@
 
 	<div class="col-lg-4 col-lg-offset-4" style="margin-top: 30%">
 		<img src="lee-sin.png" style="height: 125px; display: block; margin-left: auto; margin-right: auto">
-		<select name="region" ng-model="selRegion" ng-options="region.name for region in regionList"></select>
 	</div>
-	<div class="col-lg-4 col-lg-offset-4">
-		<input type="text" class="form-control"/>
+
+	<div class="row">
+		<div class="col-sm-2">
+			<select name="region" class="form-control" ng-model="selRegion" ng-options="region.value for region in regionList"></select>
+		</div>
+		<div class="col-sm-4">
+			<input type="text" class="form-control" ng-model="summonerName" ng-keypress="searchSummoner($event)"/>
+		</div>
 	</div>
 </div>
