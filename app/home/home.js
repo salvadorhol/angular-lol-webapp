@@ -14,7 +14,7 @@ angular.module('myApp.home', ['ngRoute'])
 	$scope.name = "Sal Holguin";
 
 	$interval(function(){
-
+		$scope.currentTime = new Date();
 	}, 1000);
 
 }]);
