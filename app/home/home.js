@@ -27,6 +27,7 @@ angular.module('myApp.home', ['ngRoute'])
 
 		if(key === 13){
 			
+			//make sure the angular digest catches up, give it a little delay.
 			$timeout(function(){
 				var data = {region: $scope.selRegion.value.toLowerCase(), name: $scope.summonerName.toLowerCase()};
 
