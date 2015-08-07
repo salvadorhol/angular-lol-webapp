@@ -9,6 +9,19 @@ angular.module('myApp.summoner', ['ngRoute'])
   });
 }])
 
-.controller('SummonerCtrl', ['$scope', '$routeParams', '$log', function($scope, $routeParams, $log) {
+.controller('SummonerCtrl', ['$scope', '$routeParams', '$log', '$http', function($scope, $routeParams, $log, $http) {
 	$scope.url = $routeParams.region + "/" + $routeParams.name;
+	console.log($routeParams);
+
+	//gets called when controller loads :D
+	$http.post('/engine.php?method=route', {class: "RiotAPI", function: "getLeague", data: $routeParams})
+		.then(function(response){
+			console.log("HomeCtrl.searchSummoner: response - ");
+			console.log(response);
+			var id = [];
+			angular.forEach(Object.keys(response.data), function(smnr){
+				id.push(smnr);
+			})
+			$scope.leagueData = response.data[id[0]][0]["entries"];
+		})
 }]);

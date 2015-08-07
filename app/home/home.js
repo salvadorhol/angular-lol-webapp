@@ -9,14 +9,22 @@ angular.module('myApp.home', ['ngRoute'])
   });
 }])
 
-.controller('HomeCtrl', ['$scope', '$interval', '$http', '$timeout', function($scope, $interval, $http, $timeout) {
+.controller('HomeCtrl', ['$scope', '$interval', '$http', '$timeout', '$location', function($scope, $interval, $http, $timeout, $location) {
 	$interval(function(){
 		$scope.currentTime = new Date();
 	}, 1000);
 
 	$scope.regionList = [
 		{name: "North America", value: "na"},
-		{name: "Europe", value: "eu"},
+		{name: "Europe North East", value: "eune"},
+		{name: "Europe West", value: "euw"},
+		{name: "Latin America North", value: "lan"},
+		{name: "Latin America South", value: "las"},
+		{name: "Oceanic", value: "oce"},
+		{name: "Turkey", value: "tr"},
+		{name: "Russia", value: "ru"},
+		{name: "Brazil", value: "br"},
+		{name: "PBE", value: "pbe"},
 		{name: "Korea", value: "kr"}
 	];
 
@@ -30,17 +38,7 @@ angular.module('myApp.home', ['ngRoute'])
 			//make sure the angular digest catches up, give it a little delay.
 			$timeout(function(){
 				var data = {region: $scope.selRegion.value.toLowerCase(), name: $scope.summonerName.toLowerCase()};
-
-				$http.post('/engine.php?method=route', {class: "RiotAPI", function: "getLeague", data: data})
-					.then(function(response){
-						console.log("HomeCtrl.searchSummoner: response - ");
-						console.log(response);
-						var id = [];
-						angular.forEach(Object.keys(response.data), function(smnr){
-							id.push(smnr);
-						})
-						$scope.leagueData = response.data[id[0]][0]["entries"];
-					})
+				$location.path('/summoner/' + data.region + '/' + data.name);
 			}, 200);
 		}
 	} 

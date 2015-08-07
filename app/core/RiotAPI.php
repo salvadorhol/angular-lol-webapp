@@ -18,7 +18,8 @@ class RiotAPI {
 		$data = json_decode($data);
 		//Riot returns an object with Keys labeled by the name of who we are search. The name is made lowercase, and all spaces in the name get removed.
 		$index = preg_replace('/\s+/', '', $name);
-		return $data->$name->id;
+		return $data->$index->id;
+		//return $url;
 	}
 
 
