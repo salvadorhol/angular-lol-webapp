@@ -26,7 +26,7 @@ class RiotAPI {
 	public function getLeague(){
 		$summoner = $this->getSummoner($this->data->region, $this->data->name);
 		$id = $summoner->id;
-		
+
 		//get League using league-v2.5
 		$url = "https://" . $this->data->region . ".api.pvp.net/api/lol/" . $this->data->region . "/v2.5/league/by-summoner/{$id}?api_key=" . apiKey;
 		$league = file_get_contents($url);

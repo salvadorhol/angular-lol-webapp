@@ -18,6 +18,6 @@ angular.module('myApp.summoner', ['ngRoute'])
 		.then(function(response){
 			console.log("HomeCtrl.searchSummoner: response - ");
 			console.log(response);
-			
+			$scope.summoner = response.data;
 		})
 }]);
