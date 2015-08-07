@@ -10,7 +10,7 @@ class RiotAPI {
 	}
 
 	//your api calls and stufff
-	private function getSummonerID($region, $name){
+	private function getSummoner($region, $name){
 
 		//$apiKey
 		$url = "https://{$region}.api.pvp.net/api/lol/{$region}/v1.4/summoner/by-name/" . rawurlencode($name) . "?api_key=" . apiKey;
@@ -18,18 +18,22 @@ class RiotAPI {
 		$data = json_decode($data);
 		//Riot returns an object with Keys labeled by the name of who we are search. The name is made lowercase, and all spaces in the name get removed.
 		$index = preg_replace('/\s+/', '', $name);
-		return $data->$index->id;
+		return $data->$index;
 		//return $url;
 	}
 
 
 	public function getLeague(){
-		$id = $this->getSummonerID($this->data->region, $this->data->name);
-		//https://na.api.pvp.net/api/lol/na/v2.5/league/by-summoner/525738?api_key=1de1adeb-dcc7-4d7a-be8f-d276b78f4b9a
+		$summoner = $this->getSummoner($this->data->region, $this->data->name);
+		$id = $summoner->id;
+		
+		//get League using league-v2.5
 		$url = "https://" . $this->data->region . ".api.pvp.net/api/lol/" . $this->data->region . "/v2.5/league/by-summoner/{$id}?api_key=" . apiKey;
-		$data = file_get_contents($url);
-		$data = json_decode($data);
-		return $data;
+		$league = file_get_contents($url);
+		$league = json_decode($league);
+		$summoner->league = $league;
+
+		return $summoner;
 	}
 
 
