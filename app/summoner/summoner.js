@@ -18,10 +18,6 @@ angular.module('myApp.summoner', ['ngRoute'])
 		.then(function(response){
 			console.log("HomeCtrl.searchSummoner: response - ");
 			console.log(response);
-			var id = [];
-			angular.forEach(Object.keys(response.data), function(smnr){
-				id.push(smnr);
-			})
-			$scope.leagueData = response.data[id[0]][0]["entries"];
+			
 		})
 }]);
