@@ -20,11 +20,13 @@ class RiotAPI {
 		//$apiKey
 		$url = "https://{$region}.api.pvp.net/api/lol/{$region}/v1.4/summoner/by-name/" . rawurlencode($name) . "?api_key=" . apiKey;
 		$data = @file_get_contents($url);
-		//error_log(json_encode($http_response_header));
+		error_log($url);
+		error_log(json_encode($http_response_header));
 
 		//set response code
 		$response = parseHeaders($http_response_header);
 		self::$errorResponse = $response;
+		error_log(json_encode(self::$errorResponse));
 
 		// //if the API call was successfull (summoner found)
 		if($response['response_code'] == 200){
@@ -43,7 +45,6 @@ class RiotAPI {
 		}
 	}
 
-
 	public function getLeague(){
 		$summoner = $this->getSummoner($this->data->region, $this->data->name);
 
@@ -51,9 +52,10 @@ class RiotAPI {
 		if(self::$errorFlag == false){
 			$id = $summoner->id;
 
+
 			//get League using league-v2.5
 			$url = "https://" . $this->data->region . ".api.pvp.net/api/lol/" . $this->data->region . "/v2.5/league/by-summoner/{$id}?api_key=" . apiKey;
-			$league = file_get_contents($url);
+			$league = @file_get_contents($url);
 			$league = json_decode($league);
 			$summoner->league = $league;
 			
