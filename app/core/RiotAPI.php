@@ -46,8 +46,7 @@ class RiotAPI {
 	}
 
 	public function getProfile(){
-		//error_log(isset($this->data->summoner->id));
-		@$summoner = ($this->data->summoner->id) ? $this->data->summoner : $this->getSummoner();
+		$summoner = (property_exists($this->data->summoner, 'id')) ? $this->data->summoner : $this->getSummoner();
 
 		//if there was no error getting the ID
 		if(self::$errorFlag == false){

@@ -13,7 +13,7 @@ angular.module('myApp.summoner', ['ngRoute'])
 	$scope.url = $routeParams.region + "/" + $routeParams.name;
 	console.log($routeParams);
 
-	var ajaxData = {region: $routeParams.region, name: $routeParams.name, summoner: SummonerService};
+	var ajaxData = {region: $routeParams.region, name: $routeParams.name, summoner: SummonerService.summoner};
 	console.log("SummonerCtrl.ajaxData: - "); console.log(ajaxData);
 
 	//gets called when controller loads :D

@@ -29,6 +29,9 @@ angular.module('myApp.home', ['ngRoute'])
 
 	$scope.selRegion = $scope.regionList[0];
 
+	//clear out summoner when you load this controller
+	SummonerService.summoner = {};
+
 	$scope.searchSummoner = function(key){
 		key = key.keyCode || key.which;
 
@@ -42,6 +45,7 @@ angular.module('myApp.home', ['ngRoute'])
 				//does summoner exists
 				$http.post("/engine.php?method=route", {class:"RiotAPI", function: "getExist", data: data})
 					.then(function(summoner){
+						console.log(summoner);
 						SummonerService.summoner = summoner.data;
 						$location.path('/summoner/' + data.region + '/' + data.name);
 					}, function(){
