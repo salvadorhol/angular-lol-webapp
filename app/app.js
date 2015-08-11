@@ -7,15 +7,19 @@ angular.module('myApp', [
   'myApp.home',
   'myApp.summoner',
   'myApp.version'
-]).
-run(['$rootScope', function($rootScope){
+])
+//service containing basic summoner object
+.run(['$rootScope', function($rootScope){
 	findWithAttr = function(arr, attr, value){
 		console.log(arr); console.log(attr); console.log(value);
 		for(var i = 0; i < arr.length; i++){
 			if(arr[i][attr] == value) return i;
 		}
 	}
-}]).
-config(['$routeProvider', function($routeProvider) {
+}])
+.config(['$routeProvider', function($routeProvider) {
   $routeProvider.otherwise({redirectTo: '/home'});
-}]);
+}])
+.service("SummonerService", function(){
+	this.summoner = {};
+})

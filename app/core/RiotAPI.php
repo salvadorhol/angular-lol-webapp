@@ -45,13 +45,13 @@ class RiotAPI {
 		}
 	}
 
-	public function getLeague(){
-		$summoner = $this->getSummoner();
+	public function getProfile(){
+		//error_log(isset($this->data->summoner->id));
+		@$summoner = ($this->data->summoner->id) ? $this->data->summoner : $this->getSummoner();
 
 		//if there was no error getting the ID
 		if(self::$errorFlag == false){
 			$id = $summoner->id;
-
 
 			//get League using league-v2.5
 			$url = "https://" . $this->data->region . ".api.pvp.net/api/lol/" . $this->data->region . "/v2.5/league/by-summoner/{$id}?api_key=" . apiKey;
@@ -72,9 +72,6 @@ class RiotAPI {
 	public function getExist(){
 		return $summoner = $this->getSummoner();
 	}	
-
-
-
 
 }
 

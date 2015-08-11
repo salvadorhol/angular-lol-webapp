@@ -9,13 +9,15 @@ angular.module('myApp.summoner', ['ngRoute'])
   });
 }])
 
-.controller('SummonerCtrl', ['$scope', '$routeParams', '$log', '$http', function($scope, $routeParams, $log, $http) {
+.controller('SummonerCtrl', ['$scope', '$routeParams', '$log', '$http', 'SummonerService', function($scope, $routeParams, $log, $http, SummonerService){
 	$scope.url = $routeParams.region + "/" + $routeParams.name;
 	console.log($routeParams);
 
+	var ajaxData = {region: $routeParams.region, name: $routeParams.name, summoner: SummonerService};
+	console.log("SummonerCtrl.ajaxData: - "); console.log(ajaxData);
 
 	//gets called when controller loads :D
-	$http.post('/engine.php?method=route', {class: "RiotAPI", function: "getLeague", data: $routeParams})
+	$http.post('/engine.php?method=route', {class: "RiotAPI", function: "getProfile", data: ajaxData})
 		.then(function(response){
 				//pre filtering
 				angular.forEach(response.data.league[response.data.id], function(league){

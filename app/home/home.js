@@ -8,8 +8,7 @@ angular.module('myApp.home', ['ngRoute'])
     controller: 'HomeCtrl'
   });
 }])
-
-.controller('HomeCtrl', ['$scope', '$interval', '$http', '$timeout', '$location', function($scope, $interval, $http, $timeout, $location) {
+.controller('HomeCtrl', ['$scope', '$interval', '$http', '$timeout', '$location', 'SummonerService', function($scope, $interval, $http, $timeout, $location, SummonerService){
 	$interval(function(){
 		$scope.currentTime = new Date();
 	}, 1000);
@@ -42,7 +41,8 @@ angular.module('myApp.home', ['ngRoute'])
 
 				//does summoner exists
 				$http.post("/engine.php?method=route", {class:"RiotAPI", function: "getExist", data: data})
-					.then(function(){
+					.then(function(summoner){
+						SummonerService.summoner = summoner.data;
 						$location.path('/summoner/' + data.region + '/' + data.name);
 					}, function(){
 						$scope.errorMessage = "Ikuuu!!!!";
