@@ -4,7 +4,9 @@ include_once("core/RiotAPI.php");
 
 class Engine {
 	//prints back ajax
-	static function s_print($e){
+	static function s_print($e, $code){
+		$code = ($code) ? $code : "400";
+		http_response_code($code);
 		echo json_encode($e);
 	}
 
@@ -19,9 +21,13 @@ class Engine {
 		$object = new $class();
 		//load the object with $data
 		$object->load($data);
+
+
 		//attempt to call specified function, if it has result return it, else return 0
 		if($out = call_user_func(array($object, $function))){
-			self::s_print($out);
+			
+			//error_log($object->errorResponse['response_code']);
+			self::s_print($out, 404);
 		} else 
 			echo 0;
 	}
