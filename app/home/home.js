@@ -37,8 +37,18 @@ angular.module('myApp.home', ['ngRoute'])
 			
 			//make sure the angular digest catches up, give it a little delay.
 			$timeout(function(){
+				//form object
 				var data = {region: $scope.selRegion.value.toLowerCase(), name: $scope.summonerName.toLowerCase()};
-				$location.path('/summoner/' + data.region + '/' + data.name);
+
+				//does summoner exists
+				$http.post("/engine.php?method=route", {class:"RiotAPI", function: "getExist", data: data})
+					.then(function(){
+						$location.path('/summoner/' + data.region + '/' + data.name);
+					}, function(){
+						$scope.errorMessage = "Ikuuu!!!!";
+					})
+
+				
 			}, 200);
 		}
 	} 

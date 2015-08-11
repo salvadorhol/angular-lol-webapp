@@ -13,7 +13,7 @@ class RiotAPI {
 	}
 
 	//your api calls and stufff
-	private function getSummoner(){
+	public function getSummoner(){
 		$name = $this->data->name;
 		$region = $this->data->region;
 
@@ -46,7 +46,7 @@ class RiotAPI {
 	}
 
 	public function getLeague(){
-		$summoner = $this->getSummoner($this->data->region, $this->data->name);
+		$summoner = $this->getSummoner();
 
 		//if there was no error getting the ID
 		if(self::$errorFlag == false){
@@ -68,6 +68,10 @@ class RiotAPI {
 		}
 	}
 
+	//does summoner exist
+	public function getExist(){
+		return $summoner = $this->getSummoner();
+	}	
 
 
 
