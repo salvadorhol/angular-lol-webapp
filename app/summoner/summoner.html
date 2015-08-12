@@ -1,14 +1,20 @@
-<div class="container">
-	<div class="panel panel-default" style="width: 70%; margin-left: auto; margin-right: auto">
+<div class="container"> 
+	<h4 class="text-center" ng-if="!summoner">Loading{{loadingDots}}</h4>
+	<div class="panel panel-default" style="width: 70%; margin-left: auto; margin-right: auto" ng-if="summoner">
 		<div class="media">
 		  	<div class="media-left">
 		  		<img class="media-object" style="width: 64px; height: 64px;" ng-src="http://ddragon.leagueoflegends.com/cdn/5.15.1/img/profileicon/{{summoner.profileIconId}}.png">
 		  	</div>
 		  	<div class="media-body">
 		        <h2 class="media-heading">{{summoner.name}}</h2>
-		        <p ng-if="summoner.league.RANKED_SOLO_5x5" style="font-weight: bold">{{summoner.league.RANKED_SOLO_5x5.tier}} {{summoner.league.soloqueue.division}} - {{summoner.league.RANKED_SOLO_5x5.name}}</p>
+		        <p ng-if="summoner.league.RANKED_SOLO_5x5" style="font-weight: bold">
+		        	{{summoner.league.RANKED_SOLO_5x5.tier}} {{summoner.league.soloqueue.division}} - {{summoner.league.RANKED_SOLO_5x5.name}}
+		        </p>
+		        <p ng-if="summoner.league == null" style="font-weight: bold">
+		        	No rank details yet...
+	        	</p>
 		  	</div>
-		  	<div class="media-right">
+		  	<div class="media-right" ng-if="summoner.league.RANKED_SOLO_5x5">
 		        <a href="#">
 		          <img class="media-object" style="width: 64px; height: 64px;" ng-src="{{summoner.league.soloqueue.rankicon}}">
 		        </a>
@@ -17,8 +23,12 @@
 		<hr>
 		<div class="list-group">
 		  <a class="list-group-item" ng-repeat="match in summoner.match.games">
-		    <h4 class="list-group-item-heading">List group item heading</h4>
-		    <p class="list-group-item-text">...</p>
+		    <h4 class="list-group-item-heading">{{match.gameMode}} {{match.subType}}</h4>
+		    <p class="list-group-item-text">
+		    	<span class="label label-default">K:{{ (match.stats.championsKilled) ? match.stats.championsKilled : 0}}</span>
+		    	<span class="label label-default">D:{{ (match.stats.numDeaths) ? match.stats.championsKilled : 0}}</span>
+		    	<span class="label label-default">A:{{ (match.stats.assists) ? match.stats.assists : 0}}</span>
+		    </p>
 		  </a>
 		</div>
 	</div>
