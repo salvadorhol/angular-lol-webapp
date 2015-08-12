@@ -1,5 +1,5 @@
 <div class="container">
-	<div class="panel" style="width: 70%; margin-left: auto; margin-right: auto">
+	<div class="panel panel-default" style="width: 70%; margin-left: auto; margin-right: auto">
 		<div class="media">
 		  	<div class="media-left">
 		  		<img class="media-object" style="width: 64px; height: 64px;" ng-src="http://ddragon.leagueoflegends.com/cdn/5.15.1/img/profileicon/{{summoner.profileIconId}}.png">
@@ -13,6 +13,13 @@
 		          <img class="media-object" style="width: 64px; height: 64px;" ng-src="{{summoner.league.soloqueue.rankicon}}">
 		        </a>
 		  	</div>
+		</div>
+		<hr>
+		<div class="list-group">
+		  <a class="list-group-item" ng-repeat="match in summoner.match.games">
+		    <h4 class="list-group-item-heading">List group item heading</h4>
+		    <p class="list-group-item-text">...</p>
+		  </a>
 		</div>
 	</div>
 </div>

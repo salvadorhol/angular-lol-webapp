@@ -19,6 +19,8 @@ angular.module('myApp.summoner', ['ngRoute'])
 	//gets called when controller loads :D
 	$http.post('/engine.php?method=route', {class: "RiotAPI", function: "getProfile", data: ajaxData})
 		.then(function(response){
+				console.log("SummonerCtrl.RiotAPI.getProfile: Response - "); 
+				console.log(response.data);
 				//pre filtering
 				angular.forEach(response.data.league[response.data.id], function(league){
 					//console.log(league);

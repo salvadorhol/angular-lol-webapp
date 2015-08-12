@@ -55,8 +55,12 @@ class RiotAPI {
 			$league = json_decode($league);
 			$summoner->league = $league;
 
-			//get match history
-			
+			//get match history https://na.api.pvp.net/api/lol/na/v1.3/game/by-summoner/525738/recent?api_key=
+			$url = "https://" . $this->data->region . ".api.pvp.net/api/lol/" . $this->data->region . "/v1.3/game/by-summoner/{$id}/recent?api_key=" . apiKey;
+			$match = @file_get_contents($url);
+			$match = json_decode($match);
+			$summoner->match = $match;
+
 			
 			return $summoner;
 		} 
