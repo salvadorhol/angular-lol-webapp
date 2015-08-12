@@ -22,11 +22,8 @@ class Engine {
 		//load the object with $data
 		$object->load($data);
 
-
 		//attempt to call specified function, if it has result return it, else return 0
-		if($out = call_user_func(array($object, $function))){
-			
-			error_log(json_encode($object::$errorResponse));
+		if($out = call_user_func(array($object, $function))){	
 			self::s_print($out, $object::$errorResponse['response_code']);
 		} 
 		//when we should be getting something other than 200

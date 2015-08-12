@@ -17,8 +17,10 @@ angular.module('myApp', [
 		}
 	}
 }])
-.config(['$routeProvider', function($routeProvider) {
+.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
   $routeProvider.otherwise({redirectTo: '/home'});
+
+  $locationProvider.html5Mode(true);
 }])
 .service("SummonerService", function(){
 	this.summoner = {};

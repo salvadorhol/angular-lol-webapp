@@ -20,13 +20,10 @@ class RiotAPI {
 		//$apiKey
 		$url = "https://{$region}.api.pvp.net/api/lol/{$region}/v1.4/summoner/by-name/" . rawurlencode($name) . "?api_key=" . apiKey;
 		$data = @file_get_contents($url);
-		error_log($url);
-		error_log(json_encode($http_response_header));
 
 		//set response code
 		$response = parseHeaders($http_response_header);
 		self::$errorResponse = $response;
-		error_log(json_encode(self::$errorResponse));
 
 		// //if the API call was successfull (summoner found)
 		if($response['response_code'] == 200){
@@ -57,6 +54,9 @@ class RiotAPI {
 			$league = @file_get_contents($url);
 			$league = json_decode($league);
 			$summoner->league = $league;
+
+			//get match history
+			
 			
 			return $summoner;
 		} 

@@ -49,6 +49,7 @@ angular.module('myApp.home', ['ngRoute'])
 						SummonerService.summoner = summoner.data;
 						$location.path('/summoner/' + data.region + '/' + data.name);
 					}, function(){
+						//when status code not 200
 						$scope.errorMessage = "Ikuuu!!!!";
 					})
 
