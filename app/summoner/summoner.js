@@ -47,6 +47,13 @@ angular.module('myApp.summoner', ['ngRoute'])
 					});
 				}
 
+				//pre filtering for matches
+				if(response.data.match){
+					angular.forEach(response.data.match.games, function(match){
+						
+					})
+				}
+
 				$interval.cancel(loading);
 				$scope.summoner = response.data;
 
