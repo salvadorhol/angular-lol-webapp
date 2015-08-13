@@ -11,9 +11,12 @@
 			<div class="col-sm-4 col-sm-offset-4">
 				<div class="form-inline">
 					<div class="input-group" style="width: 100%">
-						<input type="text" class="form-control" ng-model="summonerName" ng-keypress="searchSummoner($event)"/>
 						<div class="input-group-btn">
 							<select name="region" class="form-control" ng-model="selRegion" ng-options="region.value for region in regionList"></select>
+						</div>
+						<input type="text" class="form-control" ng-model="summonerName" ng-keypress="searchSummoner($event)"/>
+						<div class="input-group-btn">
+							<button type="button" class="btn btn-royal"> Go</button>
 						</div>
 					</div>
 				</div>
