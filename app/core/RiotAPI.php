@@ -42,7 +42,16 @@ class RiotAPI {
 		}
 	}
 
-	//returns match 2.2
+	//get champion json object
+	public function getChampionList(){
+		$url = "http://ddragon.leagueoflegends.com/cdn/5.2.1/data/en_US/champion.json";
+		$champs = @file_get_contents($url);
+		$champs = json_decode($champs);
+
+		return $champs;
+	}
+
+	//set match 2.2
 	public function setMatchForArray($arr, $region){
 
 		//loop through each game
@@ -73,6 +82,9 @@ class RiotAPI {
 			$match = @file_get_contents($url);
 			$match = json_decode($match);
 			$summoner->match = $match;
+
+			//get champion data if flag says to do so
+			$summoner->championList = ($this->data->getChampionList) ? self::getChampionList() : null;
 
 			//get match details after getting match history ^
 			//self::setMatchForArray($summoner->match->games, $this->data->region);

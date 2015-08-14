@@ -9,7 +9,7 @@ angular.module('myApp.summoner', ['ngRoute'])
   });
 }])
 
-.controller('SummonerCtrl', ['$scope', '$routeParams', '$log', '$http', '$interval', 'SummonerService', function($scope, $routeParams, $log, $http, $interval, SummonerService){
+.controller('SummonerCtrl', ['$scope', '$routeParams', '$log', '$http', '$interval', 'SummonerService', 'ChampionService', function($scope, $routeParams, $log, $http, $interval, SummonerService, ChampionService){
 	$scope.url = $routeParams.region + "/" + $routeParams.name;
 	//console.log($routeParams);
 
@@ -23,11 +23,16 @@ angular.module('myApp.summoner', ['ngRoute'])
 	}, 250);
 
 	var ajaxData = {region: $routeParams.region, name: $routeParams.name, summoner: SummonerService.summoner};
+	//if we don't champion data cache, tell backend to return it
+	ajaxData.getChampionList = (Object.keys(ChampionService.championList).length == 0) ? true : false;
 	console.log("SummonerCtrl.ajaxData: - "); console.log(ajaxData);
 
 	//gets called when controller loads :D
 	$http.post('/engine.php?method=route', {class: "RiotAPI", function: "getProfile", data: ajaxData})
 		.then(function(response){
+				//cache Champion Details if it was requested
+				if(ajaxData.getChampionList) ChampionService.setChampionList(response.data.championList.data);
+
 				//pre filtering for leagues only if not null
 				if(response.data.league){
 					angular.forEach(response.data.league[response.data.id], function(league){
@@ -47,7 +52,8 @@ angular.module('myApp.summoner', ['ngRoute'])
 				//pre filtering for matches
 				if(response.data.match){
 					angular.forEach(response.data.match.games, function(match){
-						
+						match.cleanLabel = makeGameModeLabel(match.gameMode, match.subType);
+						match.championObj = ChampionService.championList[findWithAttr(ChampionService.championList, 'key', match.championId)];
 					})
 				}
 
