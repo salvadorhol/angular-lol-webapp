@@ -11,7 +11,6 @@ angular.module('myApp', [
 //service containing basic summoner object
 .run(['$rootScope', function($rootScope){
 	findWithAttr = function(arr, attr, value){
-		console.log(arr); console.log(attr); console.log(value);
 		for(var i = 0; i < arr.length; i++){
 			if(arr[i][attr] == value) return i;
 		}

@@ -22,14 +22,18 @@
 		</div>
 		<hr>
 		<div class="list-group">
-		  <a class="list-group-item" ng-repeat="match in summoner.match.games">
-		    <h4 class="list-group-item-heading">{{match.gameMode}} {{match.subType}}</h4>
+		  <div ng-repeat="match in summoner.match.games" ng-class="{'list\-group\-item': true}">
+		    <h4 class="list-group-item-heading" style="color: black">
+		    	{{match.gameMode}} {{match.subType}} 
+		    	<span class="pull-right label label-success" ng-if="match.stats.win">Won</span>
+		    	<span class="pull-right label label-danger" ng-if="!match.stats.win">Lost</span>
+	    	</h4> 
 		    <p class="list-group-item-text">
 		    	<span class="label label-default">K:{{ (match.stats.championsKilled) ? match.stats.championsKilled : 0}}</span>
-		    	<span class="label label-default">D:{{ (match.stats.numDeaths) ? match.stats.championsKilled : 0}}</span>
+		    	<span class="label label-default">D:{{ (match.stats.numDeaths) ? match.stats.numDeaths : 0}}</span>
 		    	<span class="label label-default">A:{{ (match.stats.assists) ? match.stats.assists : 0}}</span>
 		    </p>
-		  </a>
+		  </div>
 		</div>
 	</div>
 </div>

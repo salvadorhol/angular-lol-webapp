@@ -11,7 +11,7 @@ angular.module('myApp.summoner', ['ngRoute'])
 
 .controller('SummonerCtrl', ['$scope', '$routeParams', '$log', '$http', '$interval', 'SummonerService', function($scope, $routeParams, $log, $http, $interval, SummonerService){
 	$scope.url = $routeParams.region + "/" + $routeParams.name;
-	console.log($routeParams);
+	//console.log($routeParams);
 
 	$scope.loadingDots = "";
 	//for interval, do something every 800 miliseconds
@@ -28,9 +28,6 @@ angular.module('myApp.summoner', ['ngRoute'])
 	//gets called when controller loads :D
 	$http.post('/engine.php?method=route', {class: "RiotAPI", function: "getProfile", data: ajaxData})
 		.then(function(response){
-				console.log("SummonerCtrl.RiotAPI.getProfile: Response - "); 
-				console.log(response.data);
-				
 				//pre filtering for leagues only if not null
 				if(response.data.league){
 					angular.forEach(response.data.league[response.data.id], function(league){
@@ -55,6 +52,10 @@ angular.module('myApp.summoner', ['ngRoute'])
 				}
 
 				$interval.cancel(loading);
+
+				console.log("SummonerCtrl.RiotAPI.getProfile: Response - "); 
+				console.log(response.data);
+
 				$scope.summoner = response.data;
 
 		//when we get something other than 400

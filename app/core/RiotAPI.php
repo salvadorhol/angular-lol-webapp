@@ -42,6 +42,19 @@ class RiotAPI {
 		}
 	}
 
+	//returns match 2.2
+	public function setMatchForArray($arr, $region){
+
+		//loop through each game
+		foreach($arr as &$game){
+			$url = "https://{$region}.api.pvp.net/api/lol/{$region}/v2.2/match/" . $game->gameId . "?api_key=" . apiKey;
+			error_log($url);
+			$gameDetails = @file_get_contents($url);
+			$gameDetails = json_decode($gameDetails);
+			$game->gamev22 = $gameDetails;
+		}
+	}
+
 	public function getProfile(){
 		$summoner = (property_exists($this->data->summoner, 'id')) ? $this->data->summoner : $this->getSummoner();
 
@@ -61,7 +74,9 @@ class RiotAPI {
 			$match = json_decode($match);
 			$summoner->match = $match;
 
-			
+			//get match details after getting match history ^
+			//self::setMatchForArray($summoner->match->games, $this->data->region);
+
 			return $summoner;
 		} 
 		//Something went wrong :()
