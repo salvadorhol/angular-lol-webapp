@@ -9,15 +9,14 @@
 
 		<div class="row">
 			<div class="col-sm-4 col-sm-offset-4">
-				<div class="form-inline">
-					<div class="input-group" style="width: 100%">
-						<div class="input-group-btn">
-							<select name="region" class="form-control" ng-model="selRegion" ng-options="region.value for region in regionList"></select>
-						</div>
-						<input type="text" class="form-control" ng-model="summonerName" ng-keypress="searchSummoner($event)"/>
-						<div class="input-group-btn">
-							<button type="button" class="btn btn-royal"> Go</button>
-						</div>
+					<div class="input-group">
+						<input type="text" id="summonerName" class="form-control" ng-model="summonerName" ng-init="summonerName = ''" ng-keypress="searchSummoner($event)"/>
+						<span class="input-group-btn">
+							<select name="region" class="form-control" style="width: 82px" ng-model="selRegion" ng-options="region.value for region in regionList"></select>
+						</span>
+						<span class="input-group-btn">
+							<button type="button" class="btn btn-royal" ng-click="searchSummoner({keyCode: 13})"><i class="glyphicon glyphicon-sunglasses"></i> R</button>
+						</span>
 					</div>
 				</div>
 				<h3 class="text-center">{{errorMessage}}</h3>

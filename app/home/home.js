@@ -8,7 +8,26 @@ angular.module('myApp.home', ['ngRoute'])
     controller: 'HomeCtrl'
   });
 }])
-.controller('HomeCtrl', ['$scope', '$interval', '$http', '$timeout', '$location', 'SummonerService', function($scope, $interval, $http, $timeout, $location, SummonerService){
+.factory("Home", function($q, $log, $http){
+	return {
+		getExist: function(data){
+			//declare a promise
+			var p = $q.defer();
+
+			$http.post("/engine.php?method=route", {class: "Home", function: "getExist", data: data})
+				.then(function(summoner){
+					log(summoner, "Home.getExist: success - ");
+					p.resolve(summoner);
+				}, function(){
+					log(data, "Home.getExist: failure - ", "e");
+					p.reject(null);
+				})
+
+			return p.promise;
+		}
+	}
+})
+.controller('HomeCtrl', ['$scope', '$interval', '$http', '$timeout', '$location', 'SummonerService', "Home", function($scope, $interval, $http, $timeout, $location, SummonerService, Home){
 	$interval(function(){
 		$scope.currentTime = new Date();
 	}, 1000);
@@ -37,24 +56,22 @@ angular.module('myApp.home', ['ngRoute'])
 
 		if(key === 13){
 			
-			//make sure the angular digest catches up, give it a little delay.
-			$timeout(function(){
-				//form object
-				var data = {region: $scope.selRegion.value.toLowerCase(), name: $scope.summonerName.toLowerCase()};
+			if($scope.summonerName.length > 0){
+				//make sure the angular digest catches up, give it a little delay.
+				$timeout(function(){
 
-				//does summoner exists
-				$http.post("/engine.php?method=route", {class:"RiotAPI", function: "getExist", data: data})
-					.then(function(summoner){
-						console.log(summoner);
+					//form object
+					var data = {region: $scope.selRegion.value.toLowerCase(), name: $scope.summonerName.toLowerCase()};
+
+					Home.getExist(data).then(function(summoner){
 						SummonerService.summoner = summoner.data;
 						$location.path('/summoner/' + data.region + '/' + data.name);
-					}, function(){
-						//when status code not 200
-						$scope.errorMessage = "Ikuuu!!!!";
 					})
-
-				
-			}, 200);
+					.catch(function(){
+						$scope.errorMessage = "Ikuu!!";
+					})
+				}, 200);
+			} else angular.element("#summonerName").focus();
 		}
 	} 
 }]);

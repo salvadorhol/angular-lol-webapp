@@ -1,6 +1,9 @@
 'use strict';
+
+//globals
 var findWithAttr = null;
 var makeGameModeLabel = null;
+var log = null;
 
 // Declare app level module which depends on views, and components
 angular.module('myApp', [
@@ -10,7 +13,7 @@ angular.module('myApp', [
   'myApp.version'
 ])
 //service containing basic summoner object
-.run(['$rootScope', function($rootScope){
+.run(['$rootScope', '$log', function($rootScope, $log){
 	findWithAttr = function(arr, attr, value){
 		for(var i = 0; i < arr.length; i++){
 			if(arr[i][attr] == value) return i;
@@ -37,6 +40,38 @@ angular.module('myApp', [
 		};
 
 		return mode + " - " + queue;
+	}
+
+	log = function(content, info, type){
+		if(info) $log.info(info);
+		if(!type) $log.debug(content);
+		//cases for type
+		else if (type){
+			switch (type) {
+				case "l":
+				$log.log(content);
+				break;
+
+				case "i":
+				$log.info(content);
+				break;
+
+				case "w":
+				$log.warn(content);
+				break;
+
+				case "e":
+				$log.error(content);
+				break;
+
+				case "d":
+				$log.debug(content);
+				break;
+
+				default:
+					$log.debug(content);
+			}
+		}
 	}
 }])
 .config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {

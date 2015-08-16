@@ -1,8 +1,16 @@
 <?php
-include_once("core/APIKey.php");
-include_once("core/RiotAPI.php");
+require_once("core/utility.php");
+require_once("core/APIKey.php");
+require_once("core/RiotAPI.php");
+require_once("home/home.php");
+require_once("summoner/summoner.php");
+
 
 class Engine {
+
+	public static $errorFlag = false;
+	public static $response = null;
+
 	//prints back ajax
 	static function s_print($e, $code){
 		//$code = ($code) ? $code : "400";
@@ -24,11 +32,11 @@ class Engine {
 
 		//attempt to call specified function, if it has result return it, else return 0
 		if($out = call_user_func(array($object, $function))){	
-			self::s_print($out, $object::$errorResponse['response_code']);
+			self::s_print($out, self::$response['response_code']);
 		} 
 		//when we should be getting something other than 200
 		else {
-			self::s_print(0, $object::$errorResponse['response_code']);
+			self::s_print(0, self::$response['response_code']);
 		}
 	}
 }
