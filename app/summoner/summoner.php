@@ -15,6 +15,9 @@ class Summoner extends RiotAPI {
 			$id = $summoner->id;
 			$region = $this->data->region;
 
+			//cdn version
+			$summoner->cdn = self::getLatestCDNVersion();
+
 			//get League using leaguev2.5
 			$summoner->league = self::getLeague($region, $id);
 
@@ -27,8 +30,16 @@ class Summoner extends RiotAPI {
 			//get champion data if flag says to do so
 			$summoner->championList = ($this->data->getChampionList) ? self::getChampionList() : null;
 
+			//get item data if flag says to do so 
+			$summoner->itemList = ($this->data->getItemList) ? self::getItemList() : null;
+
+			//$summoner->spellList = self::getSpellList();
+
 			//get match details after getting match history ^
-			//self::setMatchForArray($summoner->match->games, $this->data->region);
+			self::setMatchForArray($summoner->match->games, $this->data->region);
+
+			//set spell details for each game
+			self::setSpellsForArray($summoner->match->games, $this->data->region);
 
 			return $summoner;
 		} 

@@ -98,3 +98,6 @@ angular.module('myApp', [
 
 	this.championList = [];
 })
+.service("ItemService", function(){
+	this.itemList = [];
+})

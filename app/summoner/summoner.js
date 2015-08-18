@@ -8,13 +8,15 @@ angular.module('myApp.summoner', ['ngRoute'])
     controller: 'SummonerCtrl'
   });
 }])
-.factory("Summoner", function($http, $q, ChampionService, SummonerService){
+.factory("Summoner", function($http, $q, ChampionService, SummonerService, ItemService){
 	return {
 		getProfile: function(data){
 			var p = $q.defer();
 
 			//determine if we need the championList
 			data.getChampionList = (ChampionService.championList.length == 0) ? true : false;
+			//same as above, for items
+			data.getItemList = (ItemService.itemList.length == 0) ? true : false;
 
 			//append Summoner basic object incase we can recycle it.
 			data.summoner = SummonerService.summoner;
@@ -64,6 +66,8 @@ angular.module('myApp.summoner', ['ngRoute'])
 .controller('SummonerCtrl', ['$scope', '$routeParams', '$log', '$http', '$interval', 'SummonerService', 'ChampionService', 'Summoner', function($scope, $routeParams, $log, $http, $interval, SummonerService, ChampionService, Summoner){
 	$scope.url = $routeParams.region + "/" + $routeParams.name;
 	//console.log($routeParams);
+
+	$scope.itemKeys = ["item5", "item4", "item3", "item2", "item1", "item0"];
 
 	$scope.loadingDots = "";
 	//for interval, do something every 800 miliseconds

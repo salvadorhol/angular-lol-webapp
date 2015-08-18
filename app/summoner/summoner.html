@@ -22,7 +22,7 @@
 		</div>
 		<hr>
 		<div class="list-group">
-		  <div ng-repeat="match in summoner.match.games" ng-class="{'list\-group\-item': true}" style="height: 70px">
+		  <div ng-repeat="match in summoner.match.games" ng-class="{'list\-group\-item': true}" style="height: 95px">
 		    <h4 class="list-group-item-heading" style="color: black">
 		    	{{match.cleanLabel}}
 		    	<span class="pull-right label label-success" ng-if="match.stats.win">Won</span>
@@ -33,6 +33,21 @@
 		    	<span class="label label-default">K:{{ (match.stats.championsKilled) ? match.stats.championsKilled : 0}}</span>
 		    	<span class="label label-default">D:{{ (match.stats.numDeaths) ? match.stats.numDeaths : 0}}</span>
 		    	<span class="label label-default">A:{{ (match.stats.assists) ? match.stats.assists : 0}}</span>
+
+		    	<span class="pull-right">
+		    		<span>
+			    		<!--for every item except trinket-->
+			    		<img ng-repeat="key in itemKeys" ng-src="http://ddragon.leagueoflegends.com/cdn/{{summoner.cdn}}/img/item/{{match.stats[key]}}.png" style="height: 30px"/>
+		    		</span>
+		    		<!--For trinket-->
+		    		<img ng-src="http://ddragon.leagueoflegends.com/cdn/{{summoner.cdn}}/img/item/{{match.stats.item6}}.png" style="height: 30px; margin-left: 20px"/>
+		    	</span>
+		    </p>
+		    <p class="list-group-item-text">
+		    	<span class="pull-right">
+		    		<img ng-src="http://ddragon.leagueoflegends.com/cdn/{{summoner.cdn}}/img/spell/{{match.spellDetails1.image.full}}" style="height: 30px"/>
+		    		<img ng-src="http://ddragon.leagueoflegends.com/cdn/{{summoner.cdn}}/img/spell/{{match.spellDetails2.image.full}}" style="height: 30px"/>
+	    		</span>
 		    </p>
 		  </div>
 		</div>

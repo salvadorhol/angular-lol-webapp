@@ -9,6 +9,14 @@ class RiotAPI {
 		$this->data = $data;
 	}
 
+	//get latest CDN version
+	public function getLatestCDNVersion(){
+		$url = "https://ddragon.leagueoflegends.com/api/versions.json";
+		$versions = @file_get_contents($url);
+		$versions = json_decode($versions);
+
+		return $versions[0];
+	}
 	//your api calls and stufff
 	public function getSummoner($region, $name){
 		
@@ -35,13 +43,37 @@ class RiotAPI {
 		}
 	}
 
+	//get item json object
+	public function getItemList(){
+		$version = self::getLatestCDNVersion();
+
+		$url = "http://ddragon.leagueoflegends.com/cdn/{$version}/data/en_US/item.json";
+		$items = @file_get_contents($url);
+		$items = json_decode($items);
+
+		return $items;
+	}
+
 	//get champion json object
 	public function getChampionList(){
-		$url = "http://ddragon.leagueoflegends.com/cdn/5.2.1/data/en_US/champion.json";
+		$version = self::getLatestCDNVersion();
+
+		$url = "http://ddragon.leagueoflegends.com/cdn/{$version}/data/en_US/champion.json";
 		$champs = @file_get_contents($url);
 		$champs = json_decode($champs);
 
 		return $champs;
+	}
+
+	//get summoner json object 
+	public function getSpellList(){
+		$version = self::getLatestCDNVersion();
+
+		$url = "http://ddragon.leagueoflegends.com/cdn/{$version}/data/en_US/summoner.json";
+		$spells = @file_get_contents($url);
+		$spells = json_decode($spells);
+
+		return $spells;
 	}
 
 	//using leaguev2.5
@@ -68,18 +100,51 @@ class RiotAPI {
 		return $matchlist;
 	}
 
-	//set match 2.2
+	//set match 2.2. Note expects $arr to represent $array of games
 	public function setMatchForArray($arr, $region){
 
 		//loop through each game
 		foreach($arr as &$game){
 			$url = "https://{$region}.api.pvp.net/api/lol/{$region}/v2.2/match/" . $game->gameId . "?api_key=" . apiKey;
-			error_log($url);
 			$gameDetails = @file_get_contents($url);
 			$gameDetails = json_decode($gameDetails);
 			$game->gamev22 = $gameDetails;
 		}
 	}
+
+	//set static spell data for match array
+	// public function setSpellsForArray($arr, $region){
+	// 	foreach($arr as &$game){
+	// 		// $url = "https://global.api.pvp.net/api/lol/static-data/{$region}/v1.2/summoner-spell/" . $game->spell1 . "?version=" . self::getLatestCDNVersion() . "&spellData=all&api_key=" . apiKey;
+	// 		// error_log($url);
+	// 		// $spellDetails1 = @file_get_contents($url);
+	// 		// $spellDetails1 = json_decode($spellDetails1);
+
+	// 		$url = "https://global.api.pvp.net/api/lol/static-data/{$region}/v1.2/summoner-spell/" . $game->spell2 . "?version=" . self::getLatestCDNVersion() . "&spellData=all&api_key=" . apiKey;
+	// 		$spellDetails2 = @file_get_contents($url);
+	// 		$spellDetails2 = json_decode($spellDetails2);
+
+	// 		//$game->spellDetails1 = $spellDetails1;
+	// 		$game->spellDetails2 = $spellDetails2;
+	// 	}
+	// }
+
+	public function setSpellsForArray($arr, $region){
+            foreach($arr as &$game){
+
+                $url = "https://global.api.pvp.net/api/lol/static-data/{$region}/v1.2/summoner-spell/" . $game->spell1 . "?spellData=image&api_key=" . apiKey;
+                $spellDetails1 = @file_get_contents($url);
+                $spellDetails1 = json_decode($spellDetails1);
+
+             	$game->spellDetails1 = $spellDetails1;
+                
+                $url = "https://global.api.pvp.net/api/lol/static-data/{$region}/v1.2/summoner-spell/" . $game->spell2 . "?spellData=image&api_key=" . apiKey;
+                $spellDetails2 = @file_get_contents($url);
+                $spellDetails2 = json_decode($spellDetails2);
+               
+                $game->spellDetails2 = $spellDetails2;
+            }
+    }
 }
 
 ?>
