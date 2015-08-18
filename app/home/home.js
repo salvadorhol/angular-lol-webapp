@@ -15,10 +15,13 @@ angular.module('myApp.home', ['ngRoute'])
 			var p = $q.defer();
 
 			$http.post("/engine.php?method=route", {class: "Home", function: "getExist", data: data})
+				//on completion/success
 				.then(function(summoner){
 					log(summoner, "Home.getExist: success - ");
 					p.resolve(summoner);
-				}, function(){
+				}
+				//if status code reps error
+				, function(){
 					log(data, "Home.getExist: failure - ", "e");
 					p.reject(null);
 				})

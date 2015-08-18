@@ -60,6 +60,14 @@ class RiotAPI {
 		return $match;
 	}
 
+	//get match history using matchlist2.2
+	public function getMatchList($region, $id, $beginIndex, $endIndex){
+		$url = "https://{$region}.api.pvp.net/api/lol/{$region}/v2.2/matchlist/by-summoner/{$id}?beginIndex={$beginIndex}&endIndex={$endIndex}&api_key=" . apiKey;
+		$matchlist = @file_get_contents($url);
+		$matchlist = json_decode($matchlist);
+		return $matchlist;
+	}
+
 	//set match 2.2
 	public function setMatchForArray($arr, $region){
 
@@ -72,12 +80,6 @@ class RiotAPI {
 			$game->gamev22 = $gameDetails;
 		}
 	}
-
-
-	
-
-
-
 }
 
 ?>

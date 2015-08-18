@@ -18,8 +18,11 @@ class Summoner extends RiotAPI {
 			//get League using leaguev2.5
 			$summoner->league = self::getLeague($region, $id);
 
-			//using game1.3  
+			//using game1.3 - replacing will be deprecated 
 			$summoner->match = self::getGame($region, $id);
+
+			//using matchlist2.2 - replacing match1.3
+			$summoner->matchlist = self::getMatchList($region, $id, 0, 14);
 
 			//get champion data if flag says to do so
 			$summoner->championList = ($this->data->getChampionList) ? self::getChampionList() : null;
