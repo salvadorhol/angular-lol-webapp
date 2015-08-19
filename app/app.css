@@ -4,6 +4,12 @@
     color: white;
 }
 
+.match-row {
+	border: solid 1px #EEE;
+	padding: 10px;
+	height: 110px;
+}
+
 .matchLost {
 	border-left-color: red;
 	border-left-width: 6px;

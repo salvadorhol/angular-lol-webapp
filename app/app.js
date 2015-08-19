@@ -35,11 +35,15 @@ angular.module('myApp', [
 			queue = "Normal 5s";
 			break;
 
+			case "RANKED_TEAM_5x5":
+			queue = "Rank 5s";
+			break;
+
 			default: 
 				queue;
 		};
 
-		return mode + " - " + queue;
+		return {mode: mode, queue: queue};
 	}
 
 	log = function(content, info, type){
@@ -77,7 +81,7 @@ angular.module('myApp', [
 .config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
   $routeProvider.otherwise({redirectTo: '/home'});
   
-  //$locationProvider.html5Mode(true);
+  $locationProvider.html5Mode(true);
 }])
 .service("SummonerService", function(){
 	this.summoner = {};

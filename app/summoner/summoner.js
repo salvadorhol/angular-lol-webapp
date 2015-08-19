@@ -47,6 +47,20 @@ angular.module('myApp.summoner', ['ngRoute'])
 						angular.forEach(response.data.match.games, function(match){
 							match.cleanLabel = makeGameModeLabel(match.gameMode, match.subType);
 							match.championObj = ChampionService.championList[findWithAttr(ChampionService.championList, 'key', match.championId)];
+							//calc kda
+							match.kda = (function(){
+								var kills = match.stats.championsKilled;
+								var assist = match.stats.assists;
+								var deaths = match.stats.numDeaths;
+
+								var KDA = null;
+								kills = (!kills) ? 0 : kills;
+								assist = (!assist) ? 0 : assist;
+								KDA = (!deaths) ? kills + assist : (kills + assist) /deaths;
+
+								return Math.round(KDA*100)/100;
+							})();
+
 						})
 					}
 
