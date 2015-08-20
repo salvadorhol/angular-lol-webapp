@@ -4,6 +4,9 @@
 <p>Time links in description</p>
 https://www.youtube.com/watch?v=YhRQfriCPBk
 
+<h3>Appache http.conf Notice</h3>
+<p>If you're using XAMPP, in the XAMPP control panel, click on the config button for the Apache module, and select 'Apache (httpd.conf)'. This brings up a text file. Or, browse to c:/xampp/apache/conf/httpd.conf.  Edit the line for DocumentRoot to "C:/xampp/htdocs/angular-lol-webapp/app/". Save and then restart the Apache module. This fixes file references errors and allows it so that when you type 'localhost' on your browser, it loads up the content on angular-lol-webapp/app.</p>
+
 <h3>Full Tutorial Playlist</h3>
 https://goo.gl/xg1xb9
 
