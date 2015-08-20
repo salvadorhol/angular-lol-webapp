@@ -1,84 +1,94 @@
-<div class="container-fluid" style="mind-width: 1228px"> 
-	<h4 class="text-center" ng-if="!summoner">Loading{{loadingDots}}</h4>
+<div class="container" style="margin-top: 50px;"> 
+	<h4 class="text-center" ng-if="!summoner" style="color: white">Loading{{loadingDots}}</h4>
 	<div class="panel panel-default" ng-if="summoner">
-		<!--summoner icon, name and rank details-->
-		<div class="media">
-		  	<div class="media-left">
-		  		<img class="media-object" style="height: 90x;" ng-src="http://ddragon.leagueoflegends.com/cdn/5.15.1/img/profileicon/{{summoner.profileIconId}}.png">
-		  	</div>
-		  	<div class="media-body">
-		        <h2 class="media-heading">{{summoner.name}}</h2>
-		        <p ng-if="summoner.league.RANKED_SOLO_5x5" style="font-weight: bold">
-		        	{{summoner.league.RANKED_SOLO_5x5.tier}} {{summoner.league.soloqueue.division}} - {{summoner.league.RANKED_SOLO_5x5.name}}
-		        </p>
-		        <p ng-if="summoner.league == null" style="font-weight: bold">
-		        	No rank details yet...
-	        	</p>
-		  	</div>
-		  	<div class="media-right" ng-if="summoner.league.RANKED_SOLO_5x5">
-		        <a href="#">
-		          <img class="media-object" style="height: 90px;" ng-src="{{summoner.league.soloqueue.rankicon}}">
-		        </a>
-		  	</div>
-		</div>
-		<hr>
-		<!--more summoner-details down here-->
-		<div class="row">
-			<div class="col-md-7">
+		<div class="panel-heading">
+			<!--summoner icon, name and rank details-->
+			<div class="media">
+			  	<div class="media-left">
+			  		<img class="media-object" style="height: 90x;" ng-src="http://ddragon.leagueoflegends.com/cdn/5.15.1/img/profileicon/{{summoner.profileIconId}}.png">
+			  	</div>
+			  	<div class="media-body">
+			        <h2 class="media-heading">{{summoner.name}}</h2>
+			        <p ng-if="summoner.league.RANKED_SOLO_5x5" style="font-weight: bold">
+			        	{{summoner.league.RANKED_SOLO_5x5.tier}} {{summoner.league.soloqueue.division}} - {{summoner.league.RANKED_SOLO_5x5.name}}
+			        </p>
+			        <p ng-if="summoner.league == null" style="font-weight: bold">
+			        	No rank details yet...
+		        	</p>
+			  	</div>
+			  	<div class="media-right" ng-if="summoner.league.RANKED_SOLO_5x5">
+			        <a href="#">
+			          <img class="media-object" style="height: 90px;" ng-src="{{summoner.league.soloqueue.rankicon}}">
+			        </a>
+			  	</div>
 			</div>
-			<div class="col-md-5">
-				<!--game-history-->
-				<div class="list-group">
-				  <div ng-repeat="match in summoner.match.games" class="match-row" ng-class="{'matchWon':match.stats.win, 'matchLost':!match.stats.win}">
-				  	<span class="pull-left label label-primary" style="margin-right: 5px">
-				  		{{match.cleanLabel.mode}} 
-			  		</span>
-			  		<span class="pull-right label label-default">Lvl. {{match.stats.level}}</span>
-				    <h4 class="list-group-item-heading">
-				    	{{match.cleanLabel.queue}}
-			    	</h4>
-				  	<div class="row">
-				  		<div class="col-sm-3">
-				  			<img ng-src="http://ddragon.leagueoflegends.com/cdn/5.2.1/img/champion/{{match.championObj.image.full}}" height="50px" style="margin-right: 5px"/>
-				  			<span class="pull-right">
-					  			<img ng-src="http://ddragon.leagueoflegends.com/cdn/{{summoner.cdn}}/img/spell/{{match.spellDetails1.image.full}}" style="height: 30px"/>
-					  			</br>
-					    		<img ng-src="http://ddragon.leagueoflegends.com/cdn/{{summoner.cdn}}/img/spell/{{match.spellDetails2.image.full}}" style="height: 30px"/>
-				    		</span>
-				    		<p style="margin-left: 2px">{{match.championObj.id}}</p>
-				  		</div>
-				  		<div class="col-sm-6">
-				  			<center>
-						    	<span class="label label-default">K:{{ (match.stats.championsKilled) ? match.stats.championsKilled : 0}}</span>
-						    	<span class="label label-default">D:{{ (match.stats.numDeaths) ? match.stats.numDeaths : 0}}</span>
-						    	<span class="label label-default">A:{{ (match.stats.assists) ? match.stats.assists : 0}}</span>
-					    	</center>
-
-					    	<p class="text-center">
-					    		KDA: {{match.kda}}, Wards Placed: {{match.stats.wardPlaced}}, GPM: {{match.stats.goldEarned/(match.stats.timePlayed/60) | currency : '' : 2}}
-						    </p>
-				  		</div>
-				  		<div class="col-sm-2">
-				  			<span class="pull-right">
-					  			<!--for every item except trinket-->
-				  				<div class="row">
-						    		<img ng-src="http://ddragon.leagueoflegends.com/cdn/{{summoner.cdn}}/img/item/{{match.stats.item0}}.png" style="height: 30px"/>
-						    		<img ng-src="http://ddragon.leagueoflegends.com/cdn/{{summoner.cdn}}/img/item/{{match.stats.item1}}.png" style="height: 30px"/>
-						    		<img ng-src="http://ddragon.leagueoflegends.com/cdn/{{summoner.cdn}}/img/item/{{match.stats.item2}}.png" style="height: 30px"/>
+		</div>
+		<div class="panel-body">
+			<!--more summoner-details down here-->
+			<div class="row">
+				<div class="col-md-6">
+				</div>
+				<div class="col-md-6">
+					<!--game-history-->
+					<div class="list-group">
+					  <div ng-repeat="match in summoner.match.games" class="match-row" ng-class="{'matchWon':match.stats.win, 'matchLost':!match.stats.win}">
+					  	<span class="pull-left label label-primary" style="margin-right: 5px">
+					  		{{match.cleanLabel.mode}} 
+				  		</span>
+				  		<span class="pull-right label label-default">Lvl. {{match.stats.level}}</span>
+					    <h4 class="list-group-item-heading">
+					    	{{match.cleanLabel.queue}}
+				    	</h4>
+					  	<div class="row">
+					  		<div class="col-sm-3" style="padding-right: 1px">
+					  			<div class="row" style="margin-left: 3px">
+						  			<span class="pull-left">
+						  				<img ng-src="http://ddragon.leagueoflegends.com/cdn/5.2.1/img/champion/{{match.championObj.image.full}}" height="55px" style="margin-right: 5px"/>
+						  			</span>
+						  			<div>
+							  			<img ng-src="http://ddragon.leagueoflegends.com/cdn/{{summoner.cdn}}/img/spell/{{match.spellDetails1.image.full}}" style="height: 27px"/>
+							  			</br>
+							    		<img ng-src="http://ddragon.leagueoflegends.com/cdn/{{summoner.cdn}}/img/spell/{{match.spellDetails2.image.full}}" style="height: 27px"/>
+						    		</div>
 					    		</div>
-					    		<div class="row">
-						    		<img ng-src="http://ddragon.leagueoflegends.com/cdn/{{summoner.cdn}}/img/item/{{match.stats.item3}}.png" style="height: 30px"/>
-						    		<img ng-src="http://ddragon.leagueoflegends.com/cdn/{{summoner.cdn}}/img/item/{{match.stats.item4}}.png" style="height: 30px"/>
-						    		<img ng-src="http://ddragon.leagueoflegends.com/cdn/{{summoner.cdn}}/img/item/{{match.stats.item5}}.png" style="height: 30px"/>
+					    		<div class="row" style="margin-left: 3px">
+					    			<p>{{match.championObj.id}}</p>
 					    		</div>
-				    		</span>
-				    	</div>
-				    	<div class="col-sm-1" style="padding-left: 5px">
-				    		<!--trinket-->
-				    		<img ng-src="http://ddragon.leagueoflegends.com/cdn/{{summoner.cdn}}/img/item/{{match.stats.item6}}.png" style="height: 30px; margin-top: 13px"/>
-			    		</div>
-				  	</div>
-				  </div>
+					    		
+					  		</div>
+					  		<div class="col-sm-6" style="padding-left: 2px">
+					  			<center>
+							    	<span class="label label-default">K:{{ (match.stats.championsKilled) ? match.stats.championsKilled : 0}}</span>
+							    	<span class="label label-default">D:{{ (match.stats.numDeaths) ? match.stats.numDeaths : 0}}</span>
+							    	<span class="label label-default">A:{{ (match.stats.assists) ? match.stats.assists : 0}}</span>
+						    	</center>
+	
+						    	<p class="text-center">
+						    		KDA: {{match.kda}}, Wards: {{match.stats.wardPlaced}}, GPM: {{match.stats.goldEarned/(match.stats.timePlayed/60) | currency : '' : 2}}
+							    </p>
+					  		</div>
+					  		<div class="col-sm-2" style="padding: 0px 1px 0px 0px">
+					  			<span class="pull-right" style="margin-right: 17px">
+						  			<!--for every item except trinket-->
+					  				<div class="row">
+							    		<img ng-if="match.stats.item0" ng-src="http://ddragon.leagueoflegends.com/cdn/{{summoner.cdn}}/img/item/{{match.stats.item0}}.png" style="height: 30px"/>
+							    		<img ng-if="match.stats.item1" ng-src="http://ddragon.leagueoflegends.com/cdn/{{summoner.cdn}}/img/item/{{match.stats.item1}}.png" style="height: 30px"/>
+							    		<img ng-if="match.stats.item2" ng-src="http://ddragon.leagueoflegends.com/cdn/{{summoner.cdn}}/img/item/{{match.stats.item2}}.png" style="height: 30px"/>
+						    		</div>
+						    		<div class="row">
+							    		<img ng-if="match.stats.item3" ng-src="http://ddragon.leagueoflegends.com/cdn/{{summoner.cdn}}/img/item/{{match.stats.item3}}.png" style="height: 30px"/>
+							    		<img ng-if="match.stats.item4" ng-src="http://ddragon.leagueoflegends.com/cdn/{{summoner.cdn}}/img/item/{{match.stats.item4}}.png" style="height: 30px"/>
+							    		<img ng-if="match.stats.item5" ng-src="http://ddragon.leagueoflegends.com/cdn/{{summoner.cdn}}/img/item/{{match.stats.item5}}.png" style="height: 30px"/>
+						    		</div>
+					    		</span>
+					    	</div>
+					    	<div class="col-sm-1" style="padding: 0px 0px 0px 2px">
+					    		<!--trinket-->
+					    		<img ng-src="http://ddragon.leagueoflegends.com/cdn/{{summoner.cdn}}/img/item/{{match.stats.item6}}.png" style="height: 30px; margin-top: 13px"/>
+				    		</div>
+					  	</div>
+					  </div>
+					</div>
 				</div>
 			</div>
 		</div>

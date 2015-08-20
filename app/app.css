@@ -1,3 +1,6 @@
+body {
+	background-color: #1C243A;
+}
 .btn-royal {
 	border-color: #6b46e5;
     background-color: #886aea;
@@ -7,7 +10,7 @@
 .match-row {
 	border: solid 1px #EEE;
 	padding: 10px;
-	height: 110px;
+	height: 120px;
 }
 
 .matchLost {
