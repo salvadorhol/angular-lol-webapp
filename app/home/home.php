@@ -1,5 +1,4 @@
 <?php
-
 class Home extends RiotAPI {
 	private $data = null;
 

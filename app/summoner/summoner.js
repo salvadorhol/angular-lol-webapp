@@ -44,7 +44,12 @@ angular.module('myApp.summoner', ['ngRoute'])
 
 					//pre filtering for matches
 					if(response.data.match){
+						response.data.match.lostTotal = 0;
+						response.data.match.winTotal = 0;
+
 						angular.forEach(response.data.match.games, function(match){
+							if(match.stats.win) response.data.match.winTotal++;
+							if(!match.stats.win) response.data.match.lostTotal++;
 							match.cleanLabel = makeGameModeLabel(match.gameMode, match.subType);
 							match.championObj = ChampionService.championList[findWithAttr(ChampionService.championList, 'key', match.championId)];
 							//calc kda
@@ -60,8 +65,11 @@ angular.module('myApp.summoner', ['ngRoute'])
 
 								return Math.round(KDA*100)/100;
 							})();
-
 						})
+
+						//if you want to have this feature for more games, make sure you do the right math
+						response.data.match.lostTotal = response.data.match.lostTotal * 10;
+						response.data.match.winTotal = response.data.match.winTotal * 10;
 					}
 
 					log(response.data, "Summoner.getProfile: success - ");
@@ -81,8 +89,6 @@ angular.module('myApp.summoner', ['ngRoute'])
 	$scope.url = $routeParams.region + "/" + $routeParams.name;
 	//console.log($routeParams);
 
-	$scope.itemKeys = ["item5", "item4", "item3", "item2", "item1", "item0"];
-
 	$scope.loadingDots = "";
 	//for interval, do something every 800 miliseconds
 	var loading = $interval(function(){
@@ -92,6 +98,7 @@ angular.module('myApp.summoner', ['ngRoute'])
 		else $scope.loadingDots = "";
 	}, 250);
 
+	//makes an ajax to pull data for summoner
 	Summoner.getProfile($routeParams).then(function(response){
 		$interval.cancel(loading);
 		$scope.summoner = response;

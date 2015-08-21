@@ -29,6 +29,11 @@
 				<div class="col-md-6">
 				</div>
 				<div class="col-md-6">
+					<progress>
+						<!--victories-->
+						<bar value="summoner.match.winTotal" type="{{'success'}}"><span>{{summoner.match.winTotal}}%</span></bar>
+						<bar value="summoner.match.lostTotal" type="{{'danger'}}"><span>{{summoner.match.lostTotal}}%</span></bar>
+					</progress>
 					<!--game-history-->
 					<div class="list-group">
 					  <div ng-repeat="match in summoner.match.games" class="match-row" ng-class="{'matchWon':match.stats.win, 'matchLost':!match.stats.win}">
