@@ -14,6 +14,9 @@ https://goo.gl/xg1xb9
 Make sure to update the global apiKey variable. That is found under the angular-lol-webapp/app/core/APIKey.php
 Log in to https://developer.riotgames.com/ to get your free development key.
 
+<h3>License</h3>
+The MIT License (MIT)
+
 <h3>For questions or comments</h3>
 <p>salvadorhol@gmail.com</p>
 <p>twitter.com/sal_d1</p>
