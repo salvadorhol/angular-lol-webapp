@@ -1,12 +1,30 @@
 <?php
 
 class RiotAPI {
-	
+	//sal's ID: 525738
 	private $data = null;
 
 	//loads the above private variable
 	public function load($data){
 		$this->data = $data;
+	}
+
+	//Credit to Sponz :D
+	private function getPlatform($region){
+		$platformList = array(
+			 "NA" => "NA1",
+            "EUW" => "EUW1",
+            "EUNE" => "EUN1",
+            "KR" => "KR",
+            "OCE" => "OC1",
+            "BR" => "BR1",
+            "LAN" => "LA1",
+            "LAS" => "LA2",
+            "RU" => "RU",
+            "TR" => "TR1"
+			);
+
+		return $platformList[strtoupper($region)];
 	}
 
 	//get latest CDN version
@@ -110,6 +128,32 @@ class RiotAPI {
 			$gameDetails = json_decode($gameDetails);
 			$game->gamev22 = $gameDetails;
 		}
+	}
+
+	//current game v1.0
+	public function currentGame($region, $id){
+
+		$url = "https://{$region}.api.pvp.net/observer-mode/rest/consumer/getSpectatorGameInfo/" . $this->getPlatform($region) ."/{$id}?api_key=" . apiKey;
+		$currentMatch = @file_get_contents($url);
+		$currentMatch = json_decode($currentMatch);
+
+		if($currentMatch != null){
+			foreach($currentMatch->participants as &$participant){
+				$url = "https://global.api.pvp.net/api/lol/static-data/{$region}/v1.2/summoner-spell/" . $participant->spell1Id . "?spellData=image&api_key=" . apiKey;
+                $spellDetails1 = @file_get_contents($url);
+                $spellDetails1 = json_decode($spellDetails1);
+
+             	$participant->spellDetails1 = $spellDetails1;
+                
+                $url = "https://global.api.pvp.net/api/lol/static-data/{$region}/v1.2/summoner-spell/" . $participant->spell2Id . "?spellData=image&api_key=" . apiKey;
+                $spellDetails2 = @file_get_contents($url);
+                $spellDetails2 = json_decode($spellDetails2);
+               
+                $participant->spellDetails2 = $spellDetails2;
+			}
+		}
+
+		return $currentMatch;
 	}
 
 	//set static spell data for match array

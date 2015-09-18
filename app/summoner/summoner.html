@@ -22,6 +22,61 @@
 			        </a>
 			  	</div>
 			</div>
+
+			<hr ng-if="summoner.currentGame">
+
+			<div class="row" ng-if="summoner.currentGame">
+				<!--blueTeam-->
+				<div class="col-md-6">
+					<!--champion bans-->
+					<div class="row">
+						<div class="col-md-12">
+							<div ng-repeat="champ in summoner.currentGame.filtered.championBans.blueBanned">
+								<span class="pull-left">
+									<img ng-src="http://ddragon.leagueoflegends.com/cdn/{{summoner.cdn}}/img/champion/{{champ.championObj.image.full}}" height="55px" style="margin-right: 5px"/>
+								</span>
+							</div>
+						</div>
+					</div>
+					<div class="row" ng-repeat="participant in summoner.currentGame.filtered.participants.blueTeam">
+						<div class="col-sm-3" style="padding-right: 1px">
+				  			<span class="pull-left">
+				  				<img ng-src="http://ddragon.leagueoflegends.com/cdn/{{summoner.cdn}}/img/champion/{{participant.championObj.image.full}}" height="55px" style="margin-right: 5px"/>
+				  			</span>
+				  			<div>
+					  			<img ng-src="http://ddragon.leagueoflegends.com/cdn/{{summoner.cdn}}/img/spell/{{participant.spellDetails1.image.full}}" style="height: 27px"/>
+					  			</br>
+					    		<img ng-src="http://ddragon.leagueoflegends.com/cdn/{{summoner.cdn}}/img/spell/{{participant.spellDetails2.image.full}}" style="height: 27px"/>
+				    		</div>		
+				  		</div>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<!--champion bans-->
+					<div class="row">
+						<div class="col-md-12">
+							<div ng-repeat="champ in summoner.currentGame.filtered.championBans.redBanned">
+								<span class="pull-left">
+									<img ng-src="http://ddragon.leagueoflegends.com/cdn/{{summoner.cdn}}/img/champion/{{champ.championObj.image.full}}" height="55px" style="margin-right: 5px"/>
+								</span>
+							</div>
+						</div>
+					</div>
+					<div class="row" ng-repeat="participant in summoner.currentGame.filtered.participants.redTeam">
+						<div class="col-sm-3" style="padding-right: 1px">
+				  			<span class="pull-left">
+				  				<img ng-src="http://ddragon.leagueoflegends.com/cdn/{{summoner.cdn}}/img/champion/{{participant.championObj.image.full}}" height="55px" style="margin-right: 5px"/>
+				  			</span>
+				  			<div>
+					  			<img ng-src="http://ddragon.leagueoflegends.com/cdn/{{summoner.cdn}}/img/spell/{{participant.spellDetails1.image.full}}" style="height: 27px"/>
+					  			</br>
+					    		<img ng-src="http://ddragon.leagueoflegends.com/cdn/{{summoner.cdn}}/img/spell/{{participant.spellDetails2.image.full}}" style="height: 27px"/>
+				    		</div>		
+				  		</div>
+					</div>
+				</div>
+			</div>
+
 		</div>
 		<div class="panel-body">
 			<!--more summoner-details down here-->
@@ -48,7 +103,7 @@
 					  		<div class="col-sm-3" style="padding-right: 1px">
 					  			<div class="row" style="margin-left: 3px">
 						  			<span class="pull-left">
-						  				<img ng-src="http://ddragon.leagueoflegends.com/cdn/5.2.1/img/champion/{{match.championObj.image.full}}" height="55px" style="margin-right: 5px"/>
+						  				<img ng-src="http://ddragon.leagueoflegends.com/cdn/{{summoner.cdn}}/img/champion/{{match.championObj.image.full}}" height="55px" style="margin-right: 5px"/>
 						  			</span>
 						  			<div>
 							  			<img ng-src="http://ddragon.leagueoflegends.com/cdn/{{summoner.cdn}}/img/spell/{{match.spellDetails1.image.full}}" style="height: 27px"/>

@@ -8,7 +8,42 @@ angular.module('myApp.summoner', ['ngRoute'])
     controller: 'SummonerCtrl'
   });
 }])
-.factory("Summoner", function($http, $q, ChampionService, SummonerService, ItemService){
+.service("CurrentMatchFilter", function($log, ChampionService){
+	this.filter = function(cg){
+		var filtered = {};
+
+		//participants
+		var blueTeam = []; 
+		var redTeam = [];
+
+		angular.forEach(cg.participants, function(summoner){
+			// ChampionService.championList[findWithAttr(ChampionService.championList, 'key', match.championId)];
+			summoner.championObj =  ChampionService.championList[findWithAttr(ChampionService.championList, 'key', summoner.championId)];
+
+			if(summoner.teamId === 100) blueTeam.push(summoner);
+			else redTeam.push(summoner);
+		})
+
+		filtered.participants = {blueTeam: blueTeam, redTeam: redTeam};
+
+
+		var blueBanned = [];
+		var redBanned = [];
+
+		//banned champions
+		angular.forEach(cg.bannedChampions, function(champion){
+			champion.championObj = ChampionService.championList[findWithAttr(ChampionService.championList, 'key', champion.championId)];
+			if(champion.teamId === 100) blueBanned.push(champion);
+			else redBanned.push(champion);
+		})
+
+		filtered.championBans = {blueBanned: blueBanned, redBanned: redBanned};
+
+
+		return filtered;
+	}
+})
+.factory("Summoner", function($http, $q, ChampionService, SummonerService, ItemService, CurrentMatchFilter){
 	return {
 		getProfile: function(data){
 			var p = $q.defer();
@@ -71,6 +106,11 @@ angular.module('myApp.summoner', ['ngRoute'])
 						response.data.match.lostTotal = response.data.match.lostTotal * 10;
 						response.data.match.winTotal = response.data.match.winTotal * 10;
 					}
+
+					//filter participants, championBans
+					if(response.data.currentGame)
+						response.data.currentGame.filtered = CurrentMatchFilter.filter(response.data.currentGame);					
+
 
 					log(response.data, "Summoner.getProfile: success - ");
 

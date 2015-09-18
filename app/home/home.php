@@ -7,7 +7,7 @@ class Home extends RiotAPI {
 		$this->data = $data;
 	}
 
-		//does summoner exist
+	//does summoner exist
 	public function getExist(){
 		return $summoner = $this->getSummoner($this->data->region, $this->data->name);
 	}	

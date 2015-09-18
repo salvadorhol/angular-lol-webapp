@@ -1,5 +1,8 @@
 # angular-lol-webapp
 
+<h3>About</h3>
+<p>This repository is a web application that interfaces RiotGames Developer API with AngularJS and PHP. </p>
+
 <h3>Intro video</h3>
 <p>Time links in description</p>
 https://www.youtube.com/watch?v=YhRQfriCPBk
