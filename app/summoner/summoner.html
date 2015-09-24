@@ -5,7 +5,7 @@
 			<!--summoner icon, name and rank details-->
 			<div class="media">
 			  	<div class="media-left">
-			  		<img class="media-object" style="height: 90x;" ng-src="http://ddragon.leagueoflegends.com/cdn/5.15.1/img/profileicon/{{summoner.profileIconId}}.png">
+			  		<img class="media-object" style="height: 90x;" ng-src="http://ddragon.leagueoflegends.com/cdn/{{summoner.cdn}}/img/profileicon/{{summoner.profileIconId}}.png">
 			  	</div>
 			  	<div class="media-body">
 			        <h2 class="media-heading">{{summoner.name}}</h2>
@@ -38,8 +38,8 @@
 							</div>
 						</div>
 					</div>
-					<div class="row" ng-repeat="participant in summoner.currentGame.filtered.participants.blueTeam">
-						<div class="col-sm-3" style="padding-right: 1px">
+					<div class="row participant-row" ng-repeat="participant in summoner.currentGame.filtered.participants.blueTeam">
+						<div class="col-sm-3" style="padding-right: 1px; padding-left: 0px">
 				  			<span class="pull-left">
 				  				<img ng-src="http://ddragon.leagueoflegends.com/cdn/{{summoner.cdn}}/img/champion/{{participant.championObj.image.full}}" height="55px" style="margin-right: 5px"/>
 				  			</span>
@@ -47,10 +47,14 @@
 					  			<img ng-src="http://ddragon.leagueoflegends.com/cdn/{{summoner.cdn}}/img/spell/{{participant.spellDetails1.image.full}}" style="height: 27px"/>
 					  			</br>
 					    		<img ng-src="http://ddragon.leagueoflegends.com/cdn/{{summoner.cdn}}/img/spell/{{participant.spellDetails2.image.full}}" style="height: 27px"/>
-				    		</div>		
+				    		</div>
 				  		</div>
+				  		<div class="col-sm-3" style="padding-right: 1px">
+				  			<br><p style="font-weight: 600">{{participant.summonerName}}</p>
+			  			</div>
 					</div>
 				</div>
+				<!--redTeam-->
 				<div class="col-md-6">
 					<!--champion bans-->
 					<div class="row">
@@ -62,8 +66,8 @@
 							</div>
 						</div>
 					</div>
-					<div class="row" ng-repeat="participant in summoner.currentGame.filtered.participants.redTeam">
-						<div class="col-sm-3" style="padding-right: 1px">
+					<div class="row participant-row" ng-repeat="participant in summoner.currentGame.filtered.participants.redTeam">
+						<div class="col-sm-3" style="padding-right: 1px; padding-left: 0px">
 				  			<span class="pull-left">
 				  				<img ng-src="http://ddragon.leagueoflegends.com/cdn/{{summoner.cdn}}/img/champion/{{participant.championObj.image.full}}" height="55px" style="margin-right: 5px"/>
 				  			</span>
@@ -73,6 +77,9 @@
 					    		<img ng-src="http://ddragon.leagueoflegends.com/cdn/{{summoner.cdn}}/img/spell/{{participant.spellDetails2.image.full}}" style="height: 27px"/>
 				    		</div>		
 				  		</div>
+				  		<div class="col-sm-3" style="padding-right: 1px">
+				  			<br><p style="font-weight: 600">{{participant.summonerName}}</p>
+			  			</div>
 					</div>
 				</div>
 			</div>

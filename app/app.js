@@ -106,3 +106,6 @@ angular.module('myApp', [
 .service("ItemService", function(){
 	this.itemList = [];
 })
+.service("RuneService", function(){
+	this.runeList = [];
+})

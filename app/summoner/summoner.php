@@ -29,6 +29,11 @@ class Summoner extends RiotAPI {
 
 			// //using matchlist2.2 
 			// //$summoner->matchlist = self::getMatchList($region, $id, 0, 14);
+			// //get match details after getting match history ^
+			// self::setMatchForArray($summoner->match->games, $this->data->region);
+
+			// // get run data if flag says to do so
+			// $summoner->runeList = self::getRuneList();
 
 			// //get champion data if flag says to do so
 			// $summoner->championList = ($this->data->getChampionList) ? self::getChampionList() : null;
@@ -36,11 +41,8 @@ class Summoner extends RiotAPI {
 			// //get item data if flag says to do so 
 			// $summoner->itemList = ($this->data->getItemList) ? self::getItemList() : null;
 
-			// //get match details after getting match history ^
-			// //self::setMatchForArray($summoner->match->games, $this->data->region);
-
 			// //set spell details for each game
-			// self::setSpellsForArray($summoner->match->games, $this->data->region);
+			// //self::setSpellsForArray($summoner->match->games, $this->data->region);
 
 			// file_put_contents(getcwd() . "/core/staticdata", json_encode($summoner));
 			// return $summoner;

@@ -8,7 +8,7 @@ angular.module('myApp.summoner', ['ngRoute'])
     controller: 'SummonerCtrl'
   });
 }])
-.service("CurrentMatchFilter", function($log, ChampionService){
+.service("CurrentMatchFilter", function($log, ChampionService, RuneService){
 	this.filter = function(cg){
 		var filtered = {};
 
@@ -17,8 +17,18 @@ angular.module('myApp.summoner', ['ngRoute'])
 		var redTeam = [];
 
 		angular.forEach(cg.participants, function(summoner){
-			// ChampionService.championList[findWithAttr(ChampionService.championList, 'key', match.championId)];
+			//Assign championObj using championId. This represents what champion they are playing.
 			summoner.championObj =  ChampionService.championList[findWithAttr(ChampionService.championList, 'key', summoner.championId)];
+
+			//Aggregate run information. 
+			angular.forEach(summoner.runes, function(rune, index){
+				summoner.runes[index] = {
+					data: RuneService.runeList[rune.runeId],
+					count: rune.count,
+					name: RuneService.runeList[rune.runeId].name,
+					sum: rune.count * RuneService.runeList[rune.runeId].stats[Object.keys(RuneService.runeList[rune.runeId].stats)[0]]
+				};
+			})
 
 			if(summoner.teamId === 100) blueTeam.push(summoner);
 			else redTeam.push(summoner);
@@ -43,7 +53,7 @@ angular.module('myApp.summoner', ['ngRoute'])
 		return filtered;
 	}
 })
-.factory("Summoner", function($http, $q, ChampionService, SummonerService, ItemService, CurrentMatchFilter){
+.factory("Summoner", function($http, $q, ChampionService, $log, SummonerService, ItemService, RuneService, CurrentMatchFilter){
 	return {
 		getProfile: function(data){
 			var p = $q.defer();
@@ -52,6 +62,8 @@ angular.module('myApp.summoner', ['ngRoute'])
 			data.getChampionList = (ChampionService.championList.length == 0) ? true : false;
 			//same as above, for items
 			data.getItemList = (ItemService.itemList.length == 0) ? true : false;
+			//same for runes
+			data.getRuneList = (RuneService.runeList.length == 0) ? true : false;
 
 			//append Summoner basic object incase we can recycle it.
 			data.summoner = SummonerService.summoner;
@@ -59,7 +71,13 @@ angular.module('myApp.summoner', ['ngRoute'])
 			$http.post("/engine.php?method=route", {class: "Summoner", function: "getProfile", data: data})
 				.then(function(response){
 					//cache Championlist if it was requested
-					if(data.getChampionList) ChampionService.setChampionList(response.data.championList.data);
+					try {
+						if(data.getChampionList) ChampionService.setChampionList(response.data.championList.data);
+						if(data.getItemList) ItemService.itemList = response.data.itemList.data; 
+						if(data.getRuneList) RuneService.runeList = response.data.runeList.data;
+					} catch (e) {
+						$log.error(e);
+					}
 
 					//pre filtering for leagues only if not null
 					if(response.data.league){

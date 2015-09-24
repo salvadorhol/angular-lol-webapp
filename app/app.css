@@ -24,3 +24,8 @@ body {
 	border-left-width: 6px;
 	border-radius: 5px;
 }
+
+.participant-row {
+	margin: 1px 0px 1px 0px;
+	border: #E1E1E1 1px solid;
+}
