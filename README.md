@@ -20,6 +20,9 @@ Log in to https://developer.riotgames.com/ to get your free development key.
 <h3>License</h3>
 The MIT License (MIT)
 
+<h3>Disclaimer</h3>
+angular-lol-webapp isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially involved in producing or managing League of Legends. League of Legends and Riot Games are trademarks or registered trademarks of Riot Games, Inc. League of Legends © Riot Games, Inc.
+
 <h3>For questions or comments</h3>
 <p>salvadorhol@gmail.com</p>
 <p>twitter.com/sal_d1</p>
