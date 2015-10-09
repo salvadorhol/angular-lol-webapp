@@ -26,8 +26,12 @@ angular.module('myApp.summoner', ['ngRoute'])
 					data: RuneService.runeList[rune.runeId],
 					count: rune.count,
 					name: RuneService.runeList[rune.runeId].name,
-					sum: rune.count * RuneService.runeList[rune.runeId].stats[Object.keys(RuneService.runeList[rune.runeId].stats)[0]]
+					sum: rune.count * RuneService.runeList[rune.runeId].stats[Object.keys(RuneService.runeList[rune.runeId].stats)[0]],
+					isPercent: (Object.keys(RuneService.runeList[rune.runeId].stats)[0].toLowerCase().indexOf("percent") == 0) ? true : false
 				};
+
+				//if percent, fix decimal point
+				summoner.runes[index].sum = (summoner.runes[index].isPercent) ? summoner.runes[index].sum * 100 : summoner.runes[index].sum;
 			})
 
 			if(summoner.teamId === 100) blueTeam.push(summoner);
@@ -35,7 +39,6 @@ angular.module('myApp.summoner', ['ngRoute'])
 		})
 
 		filtered.participants = {blueTeam: blueTeam, redTeam: redTeam};
-
 
 		var blueBanned = [];
 		var redBanned = [];
@@ -145,7 +148,6 @@ angular.module('myApp.summoner', ['ngRoute'])
 })
 .controller('SummonerCtrl', ['$scope', '$routeParams', '$log', '$http', '$interval', 'SummonerService', 'ChampionService', 'Summoner', function($scope, $routeParams, $log, $http, $interval, SummonerService, ChampionService, Summoner){
 	$scope.url = $routeParams.region + "/" + $routeParams.name;
-	//console.log($routeParams);
 
 	$scope.loadingDots = "";
 	//for interval, do something every 800 miliseconds
@@ -164,5 +166,4 @@ angular.module('myApp.summoner', ['ngRoute'])
 	.catch(function(){
 		//something went wrong
 	})
-
 }]);

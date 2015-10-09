@@ -12,42 +12,42 @@ class Summoner extends RiotAPI {
 
 		//if there was no error getting the ID
 		if(Engine::$errorFlag == false){
-			// $id = $summoner->id;
-			// $region = $this->data->region;
+			$id = $summoner->id;
+			$region = $this->data->region;
 
-			// //cdn version
-			// $summoner->cdn = self::getLatestCDNVersion();
+			//cdn version
+			$summoner->cdn = self::getLatestCDNVersion();
 
-			// //get League using leaguev2.5
-			// $summoner->league = self::getLeague($region, $id);
+			//get League using leaguev2.5
+			$summoner->league = self::getLeague($region, $id);
 
-			// //using game1.3 
-			// $summoner->match = self::getGame($region, $id);
+			//using game1.3 
+			$summoner->match = self::getGame($region, $id);
 
-			// //is player currently in game
-			// $summoner->currentGame = self::currentGame($region, $id);
+			//is player currently in game
+			$summoner->currentGame = self::currentGame($region, $id);
 
-			// //using matchlist2.2 
-			// //$summoner->matchlist = self::getMatchList($region, $id, 0, 14);
-			// //get match details after getting match history ^
-			// self::setMatchForArray($summoner->match->games, $this->data->region);
+			//using matchlist2.2 
+			//$summoner->matchlist = self::getMatchList($region, $id, 0, 14);
+			//get match details after getting match history ^
+			//self::setMatchForArray($summoner->match->games, $this->data->region);
 
-			// // get run data if flag says to do so
-			// $summoner->runeList = self::getRuneList();
+			// get run data if flag says to do so
+			$summoner->runeList = self::getRuneList();
 
-			// //get champion data if flag says to do so
-			// $summoner->championList = ($this->data->getChampionList) ? self::getChampionList() : null;
+			//get champion data if flag says to do so
+			$summoner->championList = ($this->data->getChampionList) ? self::getChampionList() : null;
 
-			// //get item data if flag says to do so 
-			// $summoner->itemList = ($this->data->getItemList) ? self::getItemList() : null;
+			//get item data if flag says to do so 
+			$summoner->itemList = ($this->data->getItemList) ? self::getItemList() : null;
 
-			// //set spell details for each game
-			// //self::setSpellsForArray($summoner->match->games, $this->data->region);
+			//set spell details for each game
+			//self::setSpellsForArray($summoner->match->games, $this->data->region);
 
-			// file_put_contents(getcwd() . "/core/staticdata", json_encode($summoner));
-			// return $summoner;
+			file_put_contents(getcwd() . "/core/staticdata", json_encode($summoner));
+			return $summoner;
 			
-			return json_decode(file_get_contents(getcwd() . "/core/staticdata"));
+			//return json_decode(file_get_contents(getcwd() . "/core/staticdata"));
 		} 
 		//Something went wrong :()
 		else {

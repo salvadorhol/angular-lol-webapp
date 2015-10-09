@@ -144,7 +144,7 @@ class RiotAPI {
 	public function currentGame($region, $id){
 
 		$url = "https://{$region}.api.pvp.net/observer-mode/rest/consumer/getSpectatorGameInfo/" . $this->getPlatform($region) ."/{$id}?api_key=" . apiKey;
-		$currentMatch = file_get_contents($url);
+		$currentMatch = @file_get_contents($url);
 		$currentMatch = json_decode($currentMatch);
 
 		if($currentMatch != null){

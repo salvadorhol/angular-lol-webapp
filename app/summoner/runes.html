@@ -1,0 +1,4 @@
+<div class="form-group" style="width: 750px; height; 350px">
+	<div ng-repeat="rune in runesPopover.runeList">
+	<img ng-src="http://ddragon.leagueoflegends.com/cdn/{{summoner.cdn}}/img/rune/{{rune.data.image.full}}" height="30px"/>{{rune.name}}: {{rune.sum | currency : '' : 2}}</div>
+</div>

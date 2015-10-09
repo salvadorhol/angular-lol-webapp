@@ -29,7 +29,7 @@
 				<!--blueTeam-->
 				<div class="col-md-6">
 					<!--champion bans-->
-					<div class="row">
+					<div class="row" ng-if=" summoner.currentGame.filtered.championBans.blueBanned.length > 0">
 						<div class="col-md-12">
 							<div ng-repeat="champ in summoner.currentGame.filtered.championBans.blueBanned">
 								<span class="pull-left">
@@ -38,26 +38,43 @@
 							</div>
 						</div>
 					</div>
-					<div class="row participant-row" ng-repeat="participant in summoner.currentGame.filtered.participants.blueTeam">
-						<div class="col-sm-3" style="padding-right: 1px; padding-left: 0px">
-				  			<span class="pull-left">
-				  				<img ng-src="http://ddragon.leagueoflegends.com/cdn/{{summoner.cdn}}/img/champion/{{participant.championObj.image.full}}" height="55px" style="margin-right: 5px"/>
-				  			</span>
-				  			<div>
-					  			<img ng-src="http://ddragon.leagueoflegends.com/cdn/{{summoner.cdn}}/img/spell/{{participant.spellDetails1.image.full}}" style="height: 27px"/>
-					  			</br>
-					    		<img ng-src="http://ddragon.leagueoflegends.com/cdn/{{summoner.cdn}}/img/spell/{{participant.spellDetails2.image.full}}" style="height: 27px"/>
-				    		</div>
-				  		</div>
-				  		<div class="col-sm-3" style="padding-right: 1px">
-				  			<br><p style="font-weight: 600">{{participant.summonerName}}</p>
+					<!--particpants-->
+					<div class="blue-participant-row" ng-repeat="participant in summoner.currentGame.filtered.participants.blueTeam">
+						<div class="row">
+							<div class="col-sm-3">
+					  			<span class="pull-left">
+					  				<img ng-src="http://ddragon.leagueoflegends.com/cdn/{{summoner.cdn}}/img/champion/{{participant.championObj.image.full}}" height="55px" style="margin-right: 5px"/>
+					  			</span>
+					  			<div>
+						  			<img ng-src="http://ddragon.leagueoflegends.com/cdn/{{summoner.cdn}}/img/spell/{{participant.spellDetails1.image.full}}" style="height: 27px"/>
+						  			</br>
+						    		<img ng-src="http://ddragon.leagueoflegends.com/cdn/{{summoner.cdn}}/img/spell/{{participant.spellDetails2.image.full}}" style="height: 27px"/>
+					    		</div>
+					  		</div>
+					  		<div class="col-sm-3">
+					  			<br><p style="font-weight: 600">{{participant.summonerName}}</p>
+				  			</div>
+				  			<div class="col-sm-6">
+				  				 <!-- <button popover-template="runesPopover.templateUrl" popover-title="{{runesPopover.title}}" type="button" class="btn btn-default" ng-click="runesPopover.setRuneList(participant.runes)">Runes</button> -->
+				  				<!-- <span ng-repeat="rune in participant.runes">{{rune.name}}</span> -->
+				  				<button type="button" class="btn btn-default pull-right" style="margin-top: 10px" ng-click="showRunesMasteries = !showRunesMasteries">Runes & Masteries</button>
+				  			</div>
 			  			</div>
+			  			<div ng-if="showRunesMasteries">
+			  				<div class="row">
+				  				<div class="col-sm-12">
+				  					<div ng-repeat="rune in participant.runes">
+										<img ng-src="http://ddragon.leagueoflegends.com/cdn/{{summoner.cdn}}/img/rune/{{rune.data.image.full}}" height="30px"/>{{rune.name}}: <strong>{{rune.sum | currency : '' : 2}}{{(rune.isPercent) ? "%" : ""}}</strong>
+									</div>
+								</div>
+			  				</div>
+		  				</div>
 					</div>
 				</div>
 				<!--redTeam-->
 				<div class="col-md-6">
 					<!--champion bans-->
-					<div class="row">
+					<div class="row" ng-if=" summoner.currentGame.filtered.championBans.redBanned.length > 0">
 						<div class="col-md-12">
 							<div ng-repeat="champ in summoner.currentGame.filtered.championBans.redBanned">
 								<span class="pull-left">
@@ -66,24 +83,40 @@
 							</div>
 						</div>
 					</div>
-					<div class="row participant-row" ng-repeat="participant in summoner.currentGame.filtered.participants.redTeam">
-						<div class="col-sm-3" style="padding-right: 1px; padding-left: 0px">
-				  			<span class="pull-left">
-				  				<img ng-src="http://ddragon.leagueoflegends.com/cdn/{{summoner.cdn}}/img/champion/{{participant.championObj.image.full}}" height="55px" style="margin-right: 5px"/>
-				  			</span>
-				  			<div>
-					  			<img ng-src="http://ddragon.leagueoflegends.com/cdn/{{summoner.cdn}}/img/spell/{{participant.spellDetails1.image.full}}" style="height: 27px"/>
-					  			</br>
-					    		<img ng-src="http://ddragon.leagueoflegends.com/cdn/{{summoner.cdn}}/img/spell/{{participant.spellDetails2.image.full}}" style="height: 27px"/>
-				    		</div>		
-				  		</div>
-				  		<div class="col-sm-3" style="padding-right: 1px">
-				  			<br><p style="font-weight: 600">{{participant.summonerName}}</p>
+					<!--particpants-->
+					<div class="red-participant-row" ng-repeat="participant in summoner.currentGame.filtered.participants.redTeam">
+						<div class="row">
+							<div class="col-sm-3">
+					  			<span class="pull-left">
+					  				<img ng-src="http://ddragon.leagueoflegends.com/cdn/{{summoner.cdn}}/img/champion/{{participant.championObj.image.full}}" height="55px" style="margin-right: 5px"/>
+					  			</span>
+					  			<div>
+						  			<img ng-src="http://ddragon.leagueoflegends.com/cdn/{{summoner.cdn}}/img/spell/{{participant.spellDetails1.image.full}}" style="height: 27px"/>
+						  			</br>
+						    		<img ng-src="http://ddragon.leagueoflegends.com/cdn/{{summoner.cdn}}/img/spell/{{participant.spellDetails2.image.full}}" style="height: 27px"/>
+					    		</div>
+					  		</div>
+					  		<div class="col-sm-3">
+					  			<br><p style="font-weight: 600">{{participant.summonerName}}</p>
+				  			</div>
+				  			<div class="col-sm-6">
+				  				 <!-- <button popover-template="runesPopover.templateUrl" popover-title="{{runesPopover.title}}" type="button" class="btn btn-default" ng-click="runesPopover.setRuneList(participant.runes)">Runes</button> -->
+				  				<!-- <span ng-repeat="rune in participant.runes">{{rune.name}}</span> -->
+				  				<button type="button" class="btn btn-default pull-right" style="margin-top: 10px" ng-click="showRunesMasteries = !showRunesMasteries">Runes & Masteries</button>
+				  			</div>
 			  			</div>
+			  			<div ng-if="showRunesMasteries">
+			  				<div class="row">
+				  				<div class="col-sm-12">
+				  					<div ng-repeat="rune in participant.runes">
+										<img ng-src="http://ddragon.leagueoflegends.com/cdn/{{summoner.cdn}}/img/rune/{{rune.data.image.full}}" height="30px"/>{{rune.name}}: <strong>{{rune.sum | currency : '' : 2}}</strong>
+									</div>
+								</div>
+			  				</div>
+		  				</div>
 					</div>
 				</div>
 			</div>
-
 		</div>
 		<div class="panel-body">
 			<!--more summoner-details down here-->
@@ -161,3 +194,4 @@
 		</div>
 	</div>
 </div>
+

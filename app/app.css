@@ -1,5 +1,6 @@
 body {
 	background-color: #1C243A;
+	min-width: 800px;
 }
 .btn-royal {
 	border-color: #6b46e5;
@@ -12,7 +13,6 @@ body {
 	padding: 10px;
 	height: 120px;
 }
-
 .matchLost {
 	border-left-color: red;
 	border-left-width: 6px;
@@ -25,7 +25,16 @@ body {
 	border-radius: 5px;
 }
 
-.participant-row {
+.blue-participant-row {
 	margin: 1px 0px 1px 0px;
 	border: #E1E1E1 1px solid;
+	border-left-color: #275375;
+	border-left-width: 6px;
+}
+
+.red-participant-row {
+	margin: 1px 0px 1px 0px;
+	border: #E1E1E1 1px solid;
+	border-left-color: #AF2424;
+	border-left-width: 6px;
 }
